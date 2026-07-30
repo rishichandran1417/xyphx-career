@@ -3,7 +3,7 @@ import { useState } from 'react';
 const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]/\\<>|_-+=*#";
 
 export default function Navbar() {
-  const [word, setWord] = useState('xyphx');
+  const [word, setWord] = useState('XyphX');
 
   function scramble() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
