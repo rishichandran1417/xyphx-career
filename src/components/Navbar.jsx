@@ -8,7 +8,7 @@ export default function Navbar() {
   function scramble() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
-    const target = 'xyphx';
+    const target = 'XyphX';
     const duration = 450;
     const start = performance.now();
 
