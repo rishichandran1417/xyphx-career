@@ -1,0 +1,72 @@
+[
+  {
+    "id": "accountant",
+    "title": "Accountant",
+    "team": "HR",
+    "location": "Bengaluru, India",
+    "employmentType": "Professional",
+    "experience": "2–4 Years",
+    "education": "Bachelor's Degree in Commerce, Finance or Business",
+    "travel": "Occasional",
+    "salary": "Not disclosed",
+
+    "description": "Transport is at the core of modern society. Imagine using your expertise to shape sustainable transport and infrastructure solutions for the future. Join our Group Finance team and contribute to global accounting operations while working with talented professionals in a collaborative environment.",
+
+    "sections": [
+      {
+        "title": "Invoice Processing & EDI",
+        "items": [
+          "Process PO, Non-PO, Credit Note and Debit Note invoices.",
+          "Perform two-way and three-way invoice matching.",
+          "Handle invoice discrepancies and resolve stakeholder queries.",
+          "Prepare daily operational reports.",
+          "Follow up on pending documents for timely payment."
+        ]
+      },
+      {
+        "title": "Payments",
+        "items": [
+          "Execute payment proposals.",
+          "Process regular and express payments.",
+          "Handle payment exceptions."
+        ]
+      },
+      {
+        "title": "Vendor & Customer Master Data",
+        "items": [
+          "Create and modify vendor accounts.",
+          "Create and modify customer accounts.",
+          "Perform financial controls."
+        ]
+      },
+      {
+        "title": "Requirements",
+        "items": [
+          "2–4 years of accounting experience.",
+          "SAP, Oracle or ERP experience.",
+          "Strong accounting knowledge.",
+          "Excellent communication skills.",
+          "Analytical mindset.",
+          "Detail-oriented.",
+          "Team player."
+        ]
+      },
+      {
+        "title": "Good to Have",
+        "items": [
+          "SAP transition experience.",
+          "Automation or process improvement experience."
+        ]
+      }
+    ],
+
+    "aboutCompany": "Our finance organization supports business growth through accounting, financial planning, reporting, business control, and investor relations. We believe in collaboration, innovation, and continuous improvement.",
+
+    "additionalInformation": {
+      "department": "Group Finance",
+      "category": "Finance",
+      "workModel": "Office",
+      "applyByEmail": false
+    }
+  }
+]

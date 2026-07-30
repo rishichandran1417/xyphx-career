@@ -1,0 +1,899 @@
+:root{
+  --paper:#111827;
+  --muted:#6B7280;
+  --surface:#FFFFFF;
+  --surface-2:#F8FAFC;
+  --surface-3:#F3F4F6;
+  --violet:#6E56FF;
+  --violet-light:rgba(110,86,255,.08);
+  --line:#E5E7EB;
+  --shadow-sm:0 2px 10px rgba(17,24,39,.04);
+  --shadow:0 12px 40px rgba(17,24,39,.06);
+  --shadow-lg:0 24px 60px rgba(17,24,39,.08);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+.apply-page{
+  min-height:100vh;
+  background:linear-gradient(
+      180deg,
+      #FCFCFD 0%,
+      #F8FAFC 100%
+  );
+}
+
+/* =========================
+   HERO
+========================= */
+
+.apply-hero{
+  position:relative;
+  overflow:hidden;
+  padding:110px 0 70px;
+
+  background:
+      radial-gradient(circle at top right,
+      rgba(110,86,255,.12),
+      transparent 35%),
+
+      radial-gradient(circle at top left,
+      rgba(80,120,255,.08),
+      transparent 30%),
+
+      linear-gradient(
+      180deg,
+      #FFFFFF,
+      #F8FAFC);
+
+  border-bottom:1px solid var(--line);
+}
+
+.apply-hero::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background-image:
+      linear-gradient(
+      rgba(17,24,39,.025) 1px,
+      transparent 1px),
+
+      linear-gradient(
+      90deg,
+      rgba(17,24,39,.025) 1px,
+      transparent 1px);
+
+  background-size:40px 40px;
+
+  pointer-events:none;
+
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-link{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  color:var(--muted);
+
+  text-decoration:none;
+
+  font-weight:600;
+
+  transition:.25s;
+
+  margin-bottom:34px;
+
+}
+
+.back-link:hover{
+
+  color:var(--violet);
+
+  transform:translateX(-4px);
+
+}
+
+/* =========================
+   JOB CARD
+========================= */
+
+.job-card{
+
+  position:relative;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:26px;
+
+  padding:46px;
+
+  box-shadow:var(--shadow-lg);
+
+  overflow:hidden;
+
+}
+
+.job-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  top:0;
+
+  width:100%;
+
+  height:4px;
+
+  background:linear-gradient(
+      90deg,
+      #6E56FF,
+      #8B5CF6,
+      #A855F7);
+
+}
+
+.job-label{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:8px 16px;
+
+  background:var(--violet-light);
+
+  color:var(--violet);
+
+  border-radius:999px;
+
+  font-size:.82rem;
+
+  font-weight:700;
+
+  letter-spacing:.02em;
+
+  margin-bottom:20px;
+
+}
+
+.job-card h1{
+
+  font-size:clamp(2.2rem,5vw,3.4rem);
+
+  line-height:1.08;
+
+  color:var(--paper);
+
+  margin-bottom:24px;
+
+}
+
+.job-meta{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:14px;
+
+}
+
+.job-meta span{
+
+  padding:10px 18px;
+
+  border-radius:999px;
+
+  background:#F3F4F6;
+
+  color:#4B5563;
+
+  font-size:.88rem;
+
+  font-weight:600;
+
+}
+
+/* =========================
+   FORM WRAPPER
+========================= */
+
+.apply-form-section{
+
+  padding:80px 0 110px;
+
+}
+
+.apply-form{
+
+  background:transparent;
+
+}
+
+/* =========================
+   SECTION CARDS
+========================= */
+
+.form-section{
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:24px;
+
+  padding:36px;
+
+  margin-bottom:28px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.form-title{
+
+  font-size:1.7rem;
+
+  font-weight:700;
+
+  color:var(--paper);
+
+  margin-bottom:8px;
+
+}
+
+.form-subtitle{
+
+  color:var(--muted);
+
+  font-size:.95rem;
+
+  line-height:1.6;
+
+  margin-bottom:28px;
+
+}
+
+.form-divider{
+
+  display:none;
+
+}
+/* =========================
+   GRID
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:24px;
+    margin-bottom:24px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:24px;
+}
+
+/* =========================
+   LABELS
+========================= */
+
+.field label{
+
+    font-size:.92rem;
+
+    font-weight:600;
+
+    color:#374151;
+
+    letter-spacing:.01em;
+
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.field input,
+.field select,
+.field textarea{
+
+    width:100%;
+
+    min-height:58px;
+
+    padding:0 18px;
+
+    border:1px solid #D9DEE7;
+
+    border-radius:14px;
+
+    background:#fff;
+
+    color:#111827;
+
+    font-size:.95rem;
+
+    font-family:inherit;
+
+    transition:
+        border-color .25s,
+        box-shadow .25s,
+        transform .25s,
+        background .25s;
+
+}
+
+.field textarea{
+
+    min-height:180px;
+
+    resize:vertical;
+
+    padding:18px;
+
+    line-height:1.65;
+
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+
+    color:#9CA3AF;
+
+}
+
+/* =========================
+   FOCUS
+========================= */
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+
+    outline:none;
+
+    border-color:#6E56FF;
+
+    box-shadow:
+        0 0 0 4px rgba(110,86,255,.12);
+
+    background:#fff;
+
+}
+
+/* =========================
+   HOVER
+========================= */
+
+.field input:hover,
+.field textarea:hover,
+.field select:hover{
+
+    border-color:#C9CDD7;
+
+}
+
+/* =========================
+   SELECT
+========================= */
+
+.field select{
+
+    cursor:pointer;
+
+    appearance:none;
+
+    -webkit-appearance:none;
+
+    -moz-appearance:none;
+
+    padding-right:52px;
+
+    background-color:#fff;
+
+    background-image:
+
+      linear-gradient(45deg,transparent 50%,#6E56FF 50%),
+
+      linear-gradient(135deg,#6E56FF 50%,transparent 50%);
+
+    background-position:
+
+      calc(100% - 22px) calc(50% - 3px),
+
+      calc(100% - 16px) calc(50% - 3px);
+
+    background-size:6px 6px;
+
+    background-repeat:no-repeat;
+
+}
+
+/* =========================
+   NUMBER INPUT
+========================= */
+
+input[type=number]{
+
+    appearance:textfield;
+
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+
+    -webkit-appearance:none;
+
+    margin:0;
+
+}
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+.field input[type=file]{
+
+    padding:22px;
+
+    min-height:110px;
+
+    border:2px dashed rgba(110,86,255,.22);
+
+    border-radius:18px;
+
+    background:#FCFCFE;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.field input[type=file]:hover{
+
+    background:#F8F6FF;
+
+    border-color:#6E56FF;
+
+}
+
+.field input[type=file]:focus{
+
+    border-color:#6E56FF;
+
+}
+
+.field input[type=file]::file-selector-button{
+
+    border:none;
+
+    background:#6E56FF;
+
+    color:#fff;
+
+    border-radius:10px;
+
+    padding:12px 18px;
+
+    font-weight:600;
+
+    margin-right:18px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.field input[type=file]::file-selector-button:hover{
+
+    background:#5A46E5;
+
+}
+
+/* Firefox */
+
+.field input[type=file]::-webkit-file-upload-button{
+
+    border:none;
+
+}
+
+/* =========================
+   HELPER TEXT
+========================= */
+
+.field small{
+
+    color:#6B7280;
+
+    font-size:.82rem;
+
+    line-height:1.5;
+
+}
+
+/* =========================
+   REQUIRED ASTERISK
+========================= */
+
+.field label span{
+
+    color:#EF4444;
+
+}
+
+/* =========================
+   LINKS INSIDE FORM
+========================= */
+
+.apply-form a{
+
+    color:#6E56FF;
+
+    text-decoration:none;
+
+}
+
+.apply-form a:hover{
+
+    text-decoration:underline;
+
+}
+/* =========================
+   AGREEMENTS
+========================= */
+
+.agree{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    padding:18px 20px;
+
+    background:#FAFAFC;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:16px;
+
+    margin-bottom:16px;
+
+    transition:.25s;
+
+}
+
+.agree:hover{
+
+    border-color:#D1D5DB;
+
+    background:#FFFFFF;
+
+}
+
+.agree input{
+
+    width:20px;
+
+    height:20px;
+
+    margin-top:2px;
+
+    accent-color:#6E56FF;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+}
+
+.agree{
+
+    font-size:.93rem;
+
+    line-height:1.7;
+
+    color:#4B5563;
+
+}
+
+/* =========================
+   SUBMIT AREA
+========================= */
+
+.submit-area{
+
+    margin-top:42px;
+
+}
+
+.submit-btn{
+
+    width:100%;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:none;
+
+    border-radius:16px;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+
+    box-shadow:
+        0 16px 40px rgba(110,86,255,.20);
+
+}
+
+.submit-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 24px 50px rgba(110,86,255,.25);
+
+}
+
+.submit-btn:active{
+
+    transform:translateY(0);
+
+}
+
+/* =========================
+   VALIDATION
+========================= */
+
+.field input:invalid:not(:placeholder-shown){
+
+    border-color:#EF4444;
+
+}
+
+.field input:valid{
+
+    border-color:#22C55E;
+
+}
+
+/* Keep file inputs neutral */
+
+.field input[type=file]{
+
+    border-color:rgba(110,86,255,.22);
+
+}
+
+/* =========================
+   AUTOFILL
+========================= */
+
+input:-webkit-autofill{
+
+    -webkit-box-shadow:
+        0 0 0 1000px white inset;
+
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+.form-section{
+
+    animation:fadeUp .5s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:900px){
+
+    .apply-hero{
+
+        padding:90px 0 50px;
+
+    }
+
+    .job-card{
+
+        padding:34px;
+
+    }
+
+    .apply-form-section{
+
+        padding:60px 0;
+
+    }
+
+    .form-section{
+
+        padding:28px;
+
+    }
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+        gap:18px;
+
+    }
+
+}
+
+@media (max-width:600px){
+
+    .job-card{
+
+        padding:24px;
+
+        border-radius:18px;
+
+    }
+
+    .job-card h1{
+
+        font-size:2rem;
+
+    }
+
+    .job-meta{
+
+        gap:10px;
+
+    }
+
+    .job-meta span{
+
+        font-size:.8rem;
+
+    }
+
+    .form-section{
+
+        padding:22px;
+
+        border-radius:18px;
+
+    }
+
+    .form-title{
+
+        font-size:1.4rem;
+
+    }
+
+    .submit-btn{
+
+        height:56px;
+
+    }
+
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+    }
+
+}
+/* =========================
+   VALIDATION
+========================= */
+
+.field input:required:invalid,
+.field select:required:invalid,
+.field textarea:required:invalid{
+
+    border:2px solid #EF4444;
+
+    background:#FEF2F2;
+
+}
+
+.field input:required:valid,
+.field select:required:valid,
+.field textarea:required:valid{
+
+    border:2px solid #22C55E;
+
+}
+
+.field input:focus:invalid,
+.field select:focus:invalid,
+.field textarea:focus:invalid{
+
+    box-shadow:0 0 0 4px rgba(239,68,68,.12);
+
+}
+
+.field input:focus:valid,
+.field select:focus:valid,
+.field textarea:focus:valid{
+
+    box-shadow:0 0 0 4px rgba(34,197,94,.12);
+
+}
+
+/* Don't show red before the user interacts */
+.field input:placeholder-shown:not(:focus){
+
+    border:1px solid #D9DEE7;
+    background:#fff;
+
+}
