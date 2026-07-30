@@ -117,10 +117,9 @@ export default function Apply({ jobs }) {
             </span>
 
             <h1>{job.title}</h1>
-            <p>{job.team}</p>
-            <p>{job.location}</p>
-           <p>{job.employmentType}</p>
-           <p>{job.salary}</p>
+            <span>📍 {job.location}</span>
+<span>{job.employmentType}</span>
+<span>💰 {job.salary}</span>
             </div>
 
           </div>
