@@ -124,7 +124,7 @@ export default function Apply({ jobs }) {
 
           </div>
 
-        </div>
+      
       </section>
 
       <section className="apply-form-section">
