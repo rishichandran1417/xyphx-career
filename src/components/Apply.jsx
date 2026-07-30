@@ -115,9 +115,10 @@ export default function Apply({ jobs }) {
             <span className="job-label">
               Application
             </span>
-
             <h1>{job.title}</h1>
-            <span>📍 {job.location}</span>
+            <div className="job-meta">
+              <span>{job.team}</span>
+              <span>📍 {job.location}</span>
 <span>{job.employmentType}</span>
 <span>💰 {job.salary}</span>
             </div>
