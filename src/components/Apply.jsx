@@ -119,10 +119,9 @@ export default function Apply({ jobs }) {
             <h1>{job.title}</h1>
 
             <div className="job-meta">
-              <span>{job.team}</span>
-                <span>📍 {job.location}</span>
-                 <span>{job.employmentType}</span>
-                <span>💰 {job.salary}</span>
+              <div className="job-meta">
+  <pre>{JSON.stringify(job, null, 2)}</pre>
+</div>
             </div>
 
           </div>
