@@ -120,9 +120,9 @@ export default function Apply({ jobs }) {
 
             <div className="job-meta">
               <span>{job.team}</span>
-              <span>📍 {job.loc}</span>
-              <span>{job.type}</span>
-              <span>💰 {job.comp}</span>
+                <span>📍 {job.location}</span>
+                 <span>{job.employmentType}</span>
+                <span>💰 {job.salary}</span>
             </div>
 
           </div>
