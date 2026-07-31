@@ -21,24 +21,28 @@
 html{
   scroll-behavior:smooth;
 }
-
 body {
+  margin: 0;
+  background: #fff;
   position: relative;
-  background-color: #ffffff;
 }
 
 body::before {
-  content: '';
-  position: fixed;
+  content: "";
+  position: absolute;   /* Scrolls with the page */
   inset: 0;
   z-index: -1;
-  background-image: url('https://xyphx.com/logo.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: grayscale(100%);
-  opacity: 0.15;
+
+  background-image: url("https://xyphx.com/logo.png");
+  background-repeat: repeat-y;   /* Repeats as you scroll */
+  background-position: center top;
+  background-size: 400px;
+
+  opacity: 0.06;                 /* Faded watermark */
+  filter: grayscale(100%);       /* Color off */
+  pointer-events: none;
 }
+
 
 h1,h2,h3{
   margin:0;
