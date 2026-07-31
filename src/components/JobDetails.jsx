@@ -36,14 +36,22 @@ export default function JobDetails({ jobs }) {
               Open Position
             </span>
 
-            <h1>{job.title}</h1>
-
             <div className="job-meta">
               <span>{job.team}</span>
               <span>📍 {job.location}</span>
 <span>{job.employmentType}</span>
 <span>💰 {job.salary}</span>
             </div>
+                    <div className="job-header">
+  <h1>{job.title}</h1>
+
+  <Link
+    to={`/apply/${job.id}`}
+    className="btn btn-primary"
+  >
+    Apply Now
+  </Link>
+</div>
 
           </div>
 
@@ -75,6 +83,7 @@ export default function JobDetails({ jobs }) {
       <h2>About Xyphx</h2>
   <p>{job.aboutCompany}</p>
 </div>
+
 
             <div
               style={{

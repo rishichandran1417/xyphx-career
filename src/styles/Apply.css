@@ -30,25 +30,20 @@
 ========================= */
 
 .apply-hero{
-  position:relative;
-  overflow:hidden;
-  padding:110px 0 70px;
+  position: relative;
+  overflow: hidden;
+  padding: 48px 0 24px;
 
   background:
-      radial-gradient(circle at top right,
+    radial-gradient(circle at top right,
       rgba(110,86,255,.12),
       transparent 35%),
-
-      radial-gradient(circle at top left,
+    radial-gradient(circle at top left,
       rgba(80,120,255,.08),
       transparent 30%),
+    linear-gradient(180deg,#fff,#F8FAFC);
 
-      linear-gradient(
-      180deg,
-      #FFFFFF,
-      #F8FAFC);
-
-  border-bottom:1px solid var(--line);
+  border-bottom: none;
 }
 
 .apply-hero::after{
@@ -115,7 +110,7 @@
 
   position:relative;
 
-  background:#fff;
+  
 
   border:1px solid var(--line);
 
@@ -896,4 +891,24 @@ input:-webkit-autofill{
     border:1px solid #D9DEE7;
     background:#fff;
 
+}
+.apply-hero {
+  padding-bottom: 24px;
+}
+
+section.pad {
+  padding-top: 24px;
+  padding-bottom: 56px;
+}
+
+.job-content {
+  margin-top: 0;
+}
+.apply-form-card{
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: var(--shadow-lg);
+  margin-top: -48px;
 }

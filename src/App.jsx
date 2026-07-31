@@ -12,7 +12,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Apply from "./components/Apply";
 import JobDetails from "./components/JobDetails";
 import "./styles/App.css";
-
+import AnimatedCursor from "react-animated-cursor";
 function CareersPage({ jobs, loading, error }) {
   const roleTitles = jobs.map((r) => r.title);
 
@@ -58,6 +58,36 @@ export default function App() {
 
   return (
     <>
+   
+    <AnimatedCursor
+  innerSize={6}
+  outerSize={28}
+  color="110,86,255"
+  outerAlpha={0}
+  innerScale={1}
+  outerScale={1.8}
+  trailingSpeed={4}
+  clickables={[
+    "a",
+    "button",
+    ".btn",
+    ".textlink",
+    ".nav-cta",
+    "input",
+    "textarea",
+    "select",
+    "[role='button']"
+  ]}
+  innerStyle={{
+    backgroundColor: "#6E56FF",
+  }}
+  outerStyle={{
+    border: "1.5px solid #6E56FF",
+    backgroundColor: "transparent",
+  }}
+/>
+
+
     <ScrollToTop />
       <Navbar />
 

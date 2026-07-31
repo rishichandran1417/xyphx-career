@@ -5,7 +5,7 @@ const GLYPHS = ['0', '1', 'λ', '∑', 'Δ', '{', '}', '(', ')', '⟩', '⟨', '
 
 export default function Hero({ roleTitles }) {
   const canvasRef = useRef(null);
-  const [decodeText, setDecodeText] = useState(roleTitles[0] || 'RESEARCH ENGINEER');
+  const [decodeText, setDecodeText] = useState(roleTitles[0] || '');
   const reduceMotion = typeof window !== 'undefined'
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

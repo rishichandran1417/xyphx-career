@@ -155,6 +155,7 @@ export default function Apply({ jobs, loading }) {
 
       <section className="apply-form-section">
         <div className="wrap">
+          <div className="apply-form-card">
           <form className="apply-form" onSubmit={handleSubmit}>
             {/* PERSONAL INFORMATION */}
             <h2 className="form-title">Personal Information</h2>
@@ -409,6 +410,7 @@ export default function Apply({ jobs, loading }) {
               </button>
             </div>
           </form>
+          </div>
         </div>
       </section>
     </main>

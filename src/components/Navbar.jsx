@@ -1,9 +1,21 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]/\\<>|_-+=*#";
 
 export default function Navbar() {
   const [word, setWord] = useState('XyphX');
+  const location = useLocation();
+
+const goToSection = (section) => {
+  if (location.pathname === "/") {
+    document.getElementById(section)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  } else {
+    window.location.href = "/#" + section;
+  }
+};
 
   function scramble() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,12 +46,23 @@ export default function Navbar() {
         <button className="wordmark" onMouseEnter={scramble} aria-label="xyphx">
           {word}
         </button>
-        <nav className="nav-links">
-          <a className="textlink" href="#mission">Mission</a>
-          <a className="textlink" href="#teams">Teams</a>
-          <a className="textlink" href="#life">Life here</a>
-          <a className="btn btn-primary" href="#roles">Open roles</a>
-        </nav>
+    <nav className="nav-links">
+  <Link className="nav-item" to="/#mission">
+    <span>01</span> Mission
+  </Link>
+
+  <Link className="nav-item" to="/#teams">
+    <span>02</span> Teams
+  </Link>
+
+  <Link className="nav-item" to="/#life">
+    <span>03</span> Life here
+  </Link>
+
+  <Link className="nav-cta" to="/#roles">
+    Open Roles ↗
+  </Link>
+</nav>
       </div>
     </header>
   );
