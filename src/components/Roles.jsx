@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { TEAMS } from "./Teams";
+import Reveal from "./Reveal";
 
 import "../styles/App.css";
 
@@ -66,8 +67,13 @@ export default function Roles({ jobs, loading, error }) {
           {!loading && !error && filtered.length === 0 && (
             <div className="empty-state">$ no roles match that filter — try clearing it.</div>
           )}
-          {!loading && !error && filtered.map((r) => (
-            <div className="role-row" key={r.id}>
+          {!loading && !error && filtered.map((r, index) => (
+            
+            <Reveal
+  key={r.id}
+  delay={index * 0.08}
+>
+<div className="role-row">
               <div className="role-main">
                 <h3>{r.title}</h3>
                 <div className="role-tags">
@@ -97,9 +103,12 @@ export default function Roles({ jobs, loading, error }) {
   </svg>
 </Link>
             </div>
+            </Reveal>
           ))}
         </div>
+        
       </div>
+      
     </section>
   );
 }

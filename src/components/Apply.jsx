@@ -1,44 +1,13 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "../styles/Apply.css";
 
 export default function Apply({ jobs, loading }) {
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  if (loading) {
-    return (
-      <main className="apply-page">
-        <div
-          className="wrap"
-          style={{ padding: "120px 0", textAlign: "center" }}
-        >
-          <h2>Loading...</h2>
-        </div>
-      </main>
-    );
-  }
-
-  const job = jobs.find((j) => String(j.id) === String(id));
-
-  if (!job) {
-    return (
-      <main className="apply-page">
-        <div
-          className="wrap"
-          style={{ padding: "120px 0", textAlign: "center" }}
-        >
-          <h1>Job not found</h1>
-
-          <Link className="btn btn-primary" to="/">
-            Back to Careers
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
+  // All hooks must be called unconditionally, before any early return
   const [form, setForm] = useState({
-   
     firstName: "",
     lastName: "",
     email: "",
@@ -58,6 +27,21 @@ export default function Apply({ jobs, loading }) {
     resume: null,
     coverLetter: null,
   });
+
+  if (loading) {
+    return (
+      <main className="apply-page">
+        <div
+          className="wrap"
+          style={{ padding: "120px 0", textAlign: "center" }}
+        >
+          <h2>Loading...</h2>
+        </div>
+      </main>
+    );
+  }
+
+  const job = jobs.find((j) => String(j.id) === String(id));
 
   if (!job) {
     return (
@@ -136,283 +120,313 @@ export default function Apply({ jobs, loading }) {
     <main className="apply-page">
       <section className="apply-hero">
         <div className="wrap">
-          <Link to={`/job/${job.id}`} className="back-link">
-            ← Back to Job Details
-          </Link>
-
           <div className="job-card">
-            <span className="job-label">Application</span>
-            <h1>{job.title}</h1>
-            <div className="job-meta">
-              <span>{job.team}</span>
-              <span>📍 {job.location}</span>
-              <span>{job.employmentType}</span>
-              <span>💰 {job.salary}</span>
-            </div>
-          </div>
+
+  <button
+    type="button"
+    className="job-back"
+    onClick={() => navigate(-1)}
+  >
+    ← Back
+  </button>
+
+  <h1>{job.title}</h1>
+
+  <div className="job-meta">
+    <span>{job.team}</span>
+    <span>📍 {job.location}</span>
+    <span>{job.employmentType}</span>
+    <span>💰 {job.salary}</span>
+  </div>
+
+</div>
         </div>
       </section>
 
       <section className="apply-form-section">
         <div className="wrap">
           <div className="apply-form-card">
-          <form className="apply-form" onSubmit={handleSubmit}>
-            {/* PERSONAL INFORMATION */}
-            <h2 className="form-title">Personal Information</h2>
+            <form className="apply-form" onSubmit={handleSubmit}>
+              {/* PERSONAL INFORMATION */}
+              <h2 className="form-title">Personal Information</h2>
 
-            <div className="grid">
+              <div className="grid">
+                <div className="field">
+                  <label>First Name *</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="John"
+                    required
+                    minLength={2}
+                    maxLength={40}
+                    pattern="[A-Za-z ]+"
+                    autoComplete="given-name"
+                    value={form.firstName}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="field">
+                  <label>Last Name *</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Doe"
+                    required
+                    minLength={2}
+                    maxLength={40}
+                    pattern="[A-Za-z ]+"
+                    autoComplete="family-name"
+                    value={form.lastName}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="field">
+                  <label>Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="john@example.com"
+                    required
+                    autoComplete="email"
+                    value={form.email}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="field">
+                  <label>Phone Number *</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="9876543210"
+                    required
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    maxLength={15}
+                    value={form.phone}
+                    onChange={(e) => {
+                      const numbers = e.target.value.replace(/\D/g, "");
+
+                      setForm((prev) => ({
+                        ...prev,
+                        phone: numbers,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
               <div className="field">
-                <label>First Name *</label>
+                <label>Current Location *</label>
                 <input
                   type="text"
-                  name="firstName"
-                  placeholder="John"
+                  name="location"
+                  placeholder="Bangalore, India"
                   required
-                  minLength={2}
-                  maxLength={40}
-                  pattern="[A-Za-z ]+"
-                  autoComplete="given-name"
+                  autoComplete="address-level2"
+                  value={form.location}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <hr className="form-divider" />
+
+              {/* PROFESSIONAL PROFILES */}
+              <h2 className="form-title">Professional Profiles</h2>
+
+              <div className="field">
+                <label>LinkedIn Profile *</label>
+                <input
+                  type="url"
+                  name="linkedin"
+                  placeholder="https://linkedin.com/in/yourname"
+                  required
+                  value={form.linkedin}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="field">
-                <label>Last Name *</label>
+                <label>Portfolio / GitHub (Optional)</label>
+                <input
+                  type="url"
+                  name="portfolio"
+                  placeholder="https://github.com/username"
+                  value={form.portfolio}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <hr className="form-divider" />
+
+              {/* EDUCATION */}
+              <h2 className="form-title">Education</h2>
+
+              <div className="grid">
+                <div className="field">
+                  <label>Highest Education *</label>
+                  <select
+                    name="education"
+                    required
+                    value={form.education}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select</option>
+                    <option>Bachelor's Degree</option>
+                    <option>Master's Degree</option>
+                    <option>PhD</option>
+                    <option>Diploma</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div className="field">
+                  <label>Graduation Year *</label>
+                  <input
+                    type="number"
+                    name="graduationYear"
+                    min="2000"
+                    max="2035"
+                    placeholder="2027"
+                    required
+                    value={form.graduationYear}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <label>University *</label>
                 <input
                   type="text"
-                  name="lastName"
-                  placeholder="Doe"
+                  name="university"
+                  placeholder="College / University"
                   required
-                  minLength={2}
-                  maxLength={40}
-                  pattern="[A-Za-z ]+"
-                  autoComplete="family-name"
+                  value={form.university}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="field">
-                <label>Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="john@example.com"
-                  required
-                  autoComplete="email"
-                  onChange={handleChange}
-                />
+              <hr className="form-divider" />
+
+              {/* WORK AUTHORIZATION */}
+              <h2 className="form-title">Work Authorization</h2>
+
+              <div className="grid">
+                <div className="field">
+                  <label>Are you legally authorized to work in this country? *</label>
+                  <select
+                    name="authorized"
+                    required
+                    value={form.authorized}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+
+                <div className="field">
+                  <label>Will you require visa sponsorship? *</label>
+                  <select
+                    name="visa"
+                    required
+                    value={form.visa}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
               </div>
 
+              <hr className="form-divider" />
+
+              {/* DOCUMENTS */}
+              <h2 className="form-title">Documents</h2>
+
               <div className="field">
-                <label>Phone Number *</label>
+                <label>Resume / CV *</label>
                 <input
-                  type="text"
-                  name="phone"
-                  placeholder="9876543210"
-                  required
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  maxLength={15}
-                  value={form.phone}
-                  onChange={(e) => {
-                    const numbers = e.target.value.replace(/\D/g, "");
-
-                    setForm((prev) => ({
-                      ...prev,
-                      phone: numbers,
-                    }));
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="field">
-              <label>Current Location *</label>
-              <input
-                type="text"
-                name="location"
-                placeholder="Bangalore, India"
-                required
-                autoComplete="address-level2"
-                onChange={handleChange}
-              />
-            </div>
-
-            <hr className="form-divider" />
-
-            {/* PROFESSIONAL PROFILES */}
-            <h2 className="form-title">Professional Profiles</h2>
-
-            <div className="field">
-              <label>LinkedIn Profile *</label>
-              <input
-                type="url"
-                name="linkedin"
-                placeholder="https://linkedin.com/in/yourname"
-                required
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="field">
-              <label>Portfolio / GitHub (Optional)</label>
-              <input
-                type="url"
-                name="portfolio"
-                placeholder="https://github.com/username"
-                onChange={handleChange}
-              />
-            </div>
-
-            <hr className="form-divider" />
-
-            {/* EDUCATION */}
-            <h2 className="form-title">Education</h2>
-
-            <div className="grid">
-              <div className="field">
-                <label>Highest Education *</label>
-                <select name="education" required onChange={handleChange}>
-                  <option value="">Select</option>
-                  <option>Bachelor's Degree</option>
-                  <option>Master's Degree</option>
-                  <option>PhD</option>
-                  <option>Diploma</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div className="field">
-                <label>Graduation Year *</label>
-                <input
-                  type="number"
-                  name="graduationYear"
-                  min="2000"
-                  max="2035"
-                  placeholder="2027"
+                  type="file"
+                  name="resume"
+                  accept=".pdf,.doc,.docx"
                   required
                   onChange={handleChange}
                 />
-              </div>
-            </div>
-
-            <div className="field">
-              <label>University *</label>
-              <input
-                type="text"
-                name="university"
-                placeholder="College / University"
-                required
-                onChange={handleChange}
-              />
-            </div>
-
-            <hr className="form-divider" />
-
-            {/* WORK AUTHORIZATION */}
-            <h2 className="form-title">Work Authorization</h2>
-
-            <div className="grid">
-              <div className="field">
-                <label>Are you legally authorized to work in this country? *</label>
-                <select name="authorized" required onChange={handleChange}>
-                  <option value="">Select</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
+                <small>
+                  Accepted formats: PDF, DOC, DOCX • Maximum size: 5 MB
+                </small>
               </div>
 
               <div className="field">
-                <label>Will you require visa sponsorship? *</label>
-                <select name="visa" required onChange={handleChange}>
-                  <option value="">Select</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
+                <label>Cover Letter (Optional)</label>
+                <input
+                  type="file"
+                  name="coverLetter"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleChange}
+                />
+                <small>
+                  Accepted formats: PDF, DOC, DOCX • Maximum size: 5 MB
+                </small>
               </div>
-            </div>
 
-            <hr className="form-divider" />
+              {/* ADDITIONAL INFORMATION */}
+              <hr className="form-divider" />
 
-            {/* DOCUMENTS */}
-            <h2 className="form-title">Documents</h2>
+              <h2 className="form-title">Additional Information</h2>
 
-            <div className="field">
-              <label>Resume / CV *</label>
-              <input
-                type="file"
-                name="resume"
-                accept=".pdf,.doc,.docx"
-                required
-                onChange={handleChange}
-              />
-              <small>
-                Accepted formats: PDF, DOC, DOCX • Maximum size: 5 MB
-              </small>
-            </div>
+              <div className="field">
+                <label>Why are you interested in joining Xyphx?</label>
+                <textarea
+                  name="motivation"
+                  rows="6"
+                  maxLength={3000}
+                  placeholder="Tell us about yourself, your interests, and why you'd like to join Xyphx..."
+                  value={form.motivation || ""}
+                  onChange={handleChange}
+                />
+                <small>Maximum 3000 characters</small>
+              </div>
 
-            <div className="field">
-              <label>Cover Letter (Optional)</label>
-              <input
-                type="file"
-                name="coverLetter"
-                accept=".pdf,.doc,.docx"
-                onChange={handleChange}
-              />
-              <small>
-                Accepted formats: PDF, DOC, DOCX • Maximum size: 5 MB
-              </small>
-            </div>
+              <hr className="form-divider" />
 
-            {/* ADDITIONAL INFORMATION */}
-            <hr className="form-divider" />
+              {/* AGREEMENTS */}
+              <h2 className="form-title">Acknowledgements</h2>
 
-            <h2 className="form-title">Additional Information</h2>
+              <label className="agree">
+                <input type="checkbox" required />
+                I certify that all information provided in this application is
+                true, complete, and accurate.
+              </label>
 
-            <div className="field">
-              <label>Why are you interested in joining Xyphx?</label>
-              <textarea
-                name="motivation"
-                rows="6"
-                maxLength={3000}
-                placeholder="Tell us about yourself, your interests, and why you'd like to join Xyphx..."
-                onChange={handleChange}
-              />
-              <small>Maximum 3000 characters</small>
-            </div>
+              <label className="agree">
+                <input type="checkbox" required />
+                I consent to Xyphx processing my personal information for
+                recruitment purposes in accordance with its Privacy Policy.
+              </label>
 
-            <hr className="form-divider" />
+              <label className="agree">
+                <input type="checkbox" required />
+                I understand that submitting this application does not
+                guarantee employment or an interview.
+              </label>
 
-            {/* AGREEMENTS */}
-            <h2 className="form-title">Acknowledgements</h2>
-
-            <label className="agree">
-              <input type="checkbox" required />
-              I certify that all information provided in this application is
-              true, complete, and accurate.
-            </label>
-
-            <label className="agree">
-              <input type="checkbox" required />
-              I consent to Xyphx processing my personal information for
-              recruitment purposes in accordance with its Privacy Policy.
-            </label>
-
-            <label className="agree">
-              <input type="checkbox" required />
-              I understand that submitting this application does not guarantee
-              employment or an interview.
-            </label>
-
-            <div className="submit-area">
-              <button type="submit" className="btn btn-primary submit-btn">
-                Submit Application
-              </button>
-            </div>
-          </form>
+              <div className="submit-area">
+                <button type="submit" className="btn btn-primary submit-btn">
+                  Submit Application
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </section>
     </main>
   );
-                }
+}

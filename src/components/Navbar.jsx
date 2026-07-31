@@ -16,6 +16,7 @@ const goToSection = (section) => {
     window.location.href = "/#" + section;
   }
 };
+const [menuOpen, setMenuOpen] = useState(false);
 
   function scramble() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,18 +42,25 @@ const goToSection = (section) => {
   }
 
   return (
+     <>
     <header className="nav">
       <div className="nav-inner">
         <button className="wordmark" onMouseEnter={scramble} aria-label="xyphx">
           {word}
         </button>
-    <nav className="nav-links">
-  <Link className="nav-item" to="/#mission">
-    <span>01</span> Mission
-  </Link>
+         <button
+          className="hamburger"
+               onClick={() => setMenuOpen(!menuOpen)}
+               >
+             ☰
+           </button>
+               <nav className="nav-links">
+                <Link className="nav-item" to="/#mission">
+             <span>01</span> Mission
+           </Link>
 
-  <Link className="nav-item" to="/#teams">
-    <span>02</span> Teams
+            <Link className="nav-item" to="/#teams">
+              <span>02</span> Teams
   </Link>
 
   <Link className="nav-item" to="/#life">
@@ -63,7 +71,37 @@ const goToSection = (section) => {
     Open Roles ↗
   </Link>
 </nav>
-      </div>
+         </div>
     </header>
-  );
+
+    <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
+      <button
+        className="close-btn"
+        onClick={() => setMenuOpen(false)}
+      >
+        ✕
+      </button>
+
+      <Link to="/#mission" onClick={() => setMenuOpen(false)}>
+        Mission
+      </Link>
+
+      <Link to="/#teams" onClick={() => setMenuOpen(false)}>
+        Teams
+      </Link>
+
+      <Link to="/#life" onClick={() => setMenuOpen(false)}>
+        Life Here
+      </Link>
+
+      <Link
+        className="mobile-btn"
+        to="/#roles"
+        onClick={() => setMenuOpen(false)}
+      >
+        Open Roles
+      </Link>
+    </div>
+  </>
+);
 }

@@ -68,39 +68,66 @@
 
   pointer-events:none;
 
+  /* Keep the grid overlay strictly behind hero content at every screen size */
+  z-index: 0;
+
+}
+
+/* Give the hero's inner container its own stacking context so the
+   ::after grid overlay above can never paint over the back button,
+   job card, etc. — this is what was causing the back button to
+   disappear at larger viewports. */
+.apply-hero .wrap{
+  position: relative;
+  z-index: 1;
 }
 
 /* =========================
    BACK BUTTON
 ========================= */
 
-.back-link{
+.back-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-  display:inline-flex;
+  padding: 10px 18px;
+  margin-bottom: 36px;
 
-  align-items:center;
+  border: none;
+  border-radius: 999px;
 
-  gap:10px;
+  background: #f5f3ff;
+  color: #6E56FF;
 
-  color:var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
 
-  text-decoration:none;
+  cursor: pointer;
 
-  font-weight:600;
+  position: relative;
+  overflow: hidden;
 
-  transition:.25s;
-
-  margin-bottom:34px;
-
+  transition:
+    background .3s ease,
+    color .3s ease,
+    transform .25s ease,
+    box-shadow .3s ease;
 }
 
-.back-link:hover{
+.back-btn:hover{
+  background: #6E56FF;
+  color: #fff;
 
-  color:var(--violet);
-
-  transform:translateX(-4px);
-
+  
+  box-shadow: 0 12px 30px rgba(110, 86, 255, .25);
 }
+
+.back-btn svg{
+  transition: transform .25s ease;
+}
+
+
 
 /* =========================
    JOB CARD
@@ -892,8 +919,8 @@ input:-webkit-autofill{
     background:#fff;
 
 }
-.apply-hero {
-  padding-bottom: 24px;
+.apply-hero{
+  padding: 100px 0 24px;
 }
 
 section.pad {
@@ -911,4 +938,30 @@ section.pad {
   padding: 48px;
   box-shadow: var(--shadow-lg);
   margin-top: -48px;
+}
+.job-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  padding:10px 18px;
+  margin-bottom:36px;
+
+  border:none;
+  border-radius:999px;
+
+  background:#f5f3ff;
+  color:#6E56FF;
+
+  font-size:.9rem;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+}
+
+.job-back:hover{
+  background:#6E56FF;
+  color:#fff;
 }

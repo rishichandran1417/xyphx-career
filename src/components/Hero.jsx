@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]/\\<>|_-+=*#";
 const GLYPHS = ['0', '1', 'λ', '∑', 'Δ', '{', '}', '(', ')', '⟩', '⟨', '/', '∇'];
 
@@ -102,21 +102,95 @@ export default function Hero({ roleTitles }) {
     <section className="hero">
       <canvas id="field" ref={canvasRef} />
       <div className="hero-inner">
-        <div className="eyebrow mono">
+        <motion.div
+className="eyebrow mono"
+
+initial={{
+opacity:0,
+y:20
+}}
+
+animate={{
+opacity:1,
+y:0
+}}
+
+transition={{
+duration:.6
+}}
+>
           <span>$ now_hiring:</span>
           <span>{decodeText}</span>
           <span className="cursor" />
-        </div>
-        <h1>We build the models.<br />You&apos;ll build what happens next.</h1>
-        <p className="sub">
+        
+        </motion.div>
+        <motion.h1
+
+initial={{
+opacity:0,
+y:60
+}}
+
+animate={{
+opacity:1,
+y:0
+}}
+
+transition={{
+delay:.15,
+duration:.8
+}}
+
+>
+          We build the models.<br />You&apos;ll build what happens next.
+          </motion.h1>
+        <motion.p
+
+className="sub"
+
+initial={{
+opacity:0,
+y:25
+}}
+
+animate={{
+opacity:1,
+y:0
+}}
+
+transition={{
+delay:.35,
+duration:.8
+}}
+
+>
           xyphx is a generative AI research and product company. We train frontier models
           and ship the agents, tools, and interfaces that put them to work — for the
           people who use them, not just the benchmarks that score them.
-        </p>
-        <div className="hero-ctas">
+        </motion.p>
+        <motion.div
+
+className="hero-ctas"
+
+initial={{
+opacity:0,
+y:20
+}}
+
+animate={{
+opacity:1,
+y:0
+}}
+
+transition={{
+delay:.55,
+duration:.7
+}}
+
+>
           <a className="btn btn-primary" href="#roles">See open roles</a>
           <a className="btn btn-ghost" href="#mission">Read our thesis</a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export default function JobDetails({ jobs }) {
   const { id } = useParams();
-
+const navigate = useNavigate();
   const job = jobs.find((j) => String(j.id) === String(id));
 
   if (!job) {
@@ -21,68 +21,65 @@ export default function JobDetails({ jobs }) {
   }
 
   return (
+    <>
     <main className="apply-page">
+        <section className="apply-hero">
+  <div className="wrap">
+    <div className="job-card">
 
-      <section className="apply-hero">
-        <div className="wrap">
+      <button
+        className="back-btn"
+        onClick={() => navigate(-1)}
+      >
+        ← Back
+      </button>
 
-          <Link to="/" className="back-link">
-            ← Back to Careers
-          </Link>
+      <div className="job-meta">
+        <span>{job.team}</span>
+        <span>📍 {job.location}</span>
+        <span>{job.employmentType}</span>
+        <span>💰 {job.salary}</span>
+      </div>
 
-          <div className="job-card">
+      <div className="job-header">
+        <h1>{job.title}</h1>
 
-            <span className="job-label">
-              Open Position
-            </span>
+        <Link
+          to={`/apply/${job.id}`}
+          className="btn btn-primary"
+        >
+          Apply Now
+        </Link>
+      </div>
 
-            <div className="job-meta">
-              <span>{job.team}</span>
-              <span>📍 {job.location}</span>
-<span>{job.employmentType}</span>
-<span>💰 {job.salary}</span>
-            </div>
-                    <div className="job-header">
-  <h1>{job.title}</h1>
-
-  <Link
-    to={`/apply/${job.id}`}
-    className="btn btn-primary"
-  >
-    Apply Now
-  </Link>
-</div>
-
-          </div>
-
-        </div>
-      </section>
-
+    </div>
+  </div>
+</section>
       <section className="pad">
         <div className="wrap">
 
           <div className="job-content">
 
-           <div className="job-section">
-  <p>{job.description}</p>
-</div>
+            <div className="job-section">
+              <p>{job.description}</p>
+            </div>
 
-{job.sections.map((section) => (
-  <div className="job-section" key={section.title}>
-    <h2>{section.title}</h2>
+            {job.sections.map((section) => (
+              <div className="job-section" key={section.title}>
+                <h2>{section.title}</h2>
 
-    <ul>
-      {section.items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  </div>
-))}
+                <ul>
+                  {section.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
 
-      <div className="job-section">
-      <h2>About Xyphx</h2>
-  <p>{job.aboutCompany}</p>
-</div>
+            <div className="job-section">
+              <h2>About Xyphx</h2>
+              <p>{job.aboutCompany}</p>
+            </div>
 
 
             <div
@@ -105,5 +102,6 @@ export default function JobDetails({ jobs }) {
       </section>
 
     </main>
+    </>
   );
 }
