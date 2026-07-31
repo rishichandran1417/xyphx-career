@@ -33,20 +33,39 @@ body {
   position: relative;
 }
 
+body {
+  margin: 0;
+  position: relative;
+  background-color: #fff;
+}
+
 body::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background-image: url("https://xyphx.com/logo.png");
-  background-repeat: repeat-y;
-  background-position: center top;
-  background-size: 400px;
-  opacity: 0.06;
-  filter: grayscale(100%);
+  z-index: -2;
+  background-image:
+    repeating-linear-gradient(to right, rgba(17,24,39,.05) 0 1px, transparent 1px 48px),
+    repeating-linear-gradient(to bottom, rgba(17,24,39,.05) 0 1px, transparent 1px 48px);
   pointer-events: none;
 }
 
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 900px;
+  z-index: -1;
+  background-image: url("https://xyphx.com/logo.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 700px;
+  opacity: 0.07;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
 h1,h2,h3{
   margin:0;
   color:var(--paper);
