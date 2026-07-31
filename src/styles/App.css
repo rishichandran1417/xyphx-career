@@ -781,3 +781,20 @@ footer .btn{
 .team-mono{
   display:none;
 }
+
+.benefit,
+.team-card,
+.role-row {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.benefit:hover,
+.team-card:hover,
+.role-row:hover {
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
