@@ -817,3 +817,40 @@ footer .btn{
   box-shadow: none;
   transform: none;
 }
+.job-content{
+  max-width:900px;
+  margin:60px auto;
+  padding:48px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:0 10px 30px rgba(17,24,39,.05);
+}
+.job-content p,
+.job-content li{
+  font-size:1rem;
+  line-height:1.8;
+  color:var(--muted);
+}
+
+.job-content h2,
+.job-content h3{
+  margin:32px 0 16px;
+}
+@media (max-width:768px){
+
+  .job-content{
+    margin:24px 16px;
+    padding:24px;
+  }
+
+  .job-content h1{
+    font-size:2rem;
+  }
+
+  .job.description h2,
+  .job.description h3{
+    font-size:1.4rem;
+  }
+
+}
