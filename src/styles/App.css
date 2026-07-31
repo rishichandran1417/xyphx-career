@@ -23,9 +23,11 @@ html{
 }
 
 body{
-  background: #fff url("https://xyphx.com/logo.png") no-repeat center top;
-  background-size: cover;
-  background-attachment: scroll; 
+    background-image: url("https://xyphx.com/logo.png");
+  background-repeat: no-repeat ;
+  background-position: center center;
+  background-size: cover ;
+  background-color: #ffffff;
 }
 
 h1,h2,h3{
