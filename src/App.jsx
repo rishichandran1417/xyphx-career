@@ -8,7 +8,7 @@ import Teams from "./components/Teams";
 import Roles from "./components/Roles";
 import Benefits from "./components/Benefits";
 import Footer from "./components/Footer";
-
+import ScrollToTop from "./components/ScrollToTop";
 import Apply from "./components/Apply";
 import JobDetails from "./components/JobDetails";
 import "./styles/App.css";
@@ -58,6 +58,7 @@ export default function App() {
 
   return (
     <>
+    <ScrollToTop />
       <Navbar />
 
       <Routes>

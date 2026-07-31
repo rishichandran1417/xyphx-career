@@ -2,12 +2,43 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../styles/Apply.css";
 
-export default function Apply({ jobs }) {
+export default function Apply({ jobs, loading }) {
   const { id } = useParams();
+
+  if (loading) {
+    return (
+      <main className="apply-page">
+        <div
+          className="wrap"
+          style={{ padding: "120px 0", textAlign: "center" }}
+        >
+          <h2>Loading...</h2>
+        </div>
+      </main>
+    );
+  }
 
   const job = jobs.find((j) => String(j.id) === String(id));
 
+  if (!job) {
+    return (
+      <main className="apply-page">
+        <div
+          className="wrap"
+          style={{ padding: "120px 0", textAlign: "center" }}
+        >
+          <h1>Job not found</h1>
+
+          <Link className="btn btn-primary" to="/">
+            Back to Careers
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   const [form, setForm] = useState({
+   
     firstName: "",
     lastName: "",
     email: "",
