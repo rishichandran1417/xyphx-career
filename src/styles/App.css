@@ -22,8 +22,8 @@ html{
   scroll-behavior:smooth;
 }
 
-body{
-   position: relative;
+body {
+  position: relative;
   background-color: #ffffff;
 }
 
@@ -33,7 +33,7 @@ body::before {
   inset: 0;
   z-index: -1;
   background-image: url('https://xyphx.com/logo.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   filter: grayscale(100%);
