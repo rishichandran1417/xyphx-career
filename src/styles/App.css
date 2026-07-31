@@ -345,8 +345,11 @@ header.nav{
 ========================================================== */
 
 section.pad{
-  padding:96px 0;
-  border-bottom:1px solid var(--line);
+  padding:56px 0;
+}
+
+.section-head{
+  margin-bottom:32px;
 }
 
 section.pad:nth-child(even){
@@ -853,4 +856,12 @@ footer .btn{
     font-size:1.4rem;
   }
 
+}
+@media (max-width:820px){
+  .locfilter{
+    flex: 1 1 100%;
+    width:100%;
+    margin-left:0;
+    margin-top:12px;
+  }
 }
