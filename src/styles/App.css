@@ -23,11 +23,21 @@ html{
 }
 
 body{
-    background-image: url("https://xyphx.com/logo.png");
-  background-repeat: no-repeat ;
-  background-position: center center;
-  background-size: cover ;
+   position: relative;
   background-color: #ffffff;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('https://xyphx.com/logo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  opacity: 0.15;
 }
 
 h1,h2,h3{
