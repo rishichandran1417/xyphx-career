@@ -23,17 +23,9 @@ html{
 }
 
 body{
-  margin:0;
-  background-color:#F5F5F5;
-  background-image:
-    linear-gradient(#E6E6E6 1px, transparent 1px),
-    linear-gradient(90deg, #E6E6E6 1px, transparent 1px);
-  background-size:100px 100px;
-
-  color:var(--paper);
-  font-family:'Satoshi',sans-serif;  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
+  background: #fff url("https://xyphx.com/logo.png") no-repeat center top;
+  background-size: cover;
+  background-attachment: scroll; 
 }
 
 h1,h2,h3{
