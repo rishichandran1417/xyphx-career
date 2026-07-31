@@ -328,11 +328,11 @@ section.pad{
 }
 
 section.pad:nth-child(even){
-  background:#FCFCFD;
+  background:transparent;
 }
 
 section.pad:nth-child(odd){
-  background:#FFFFFF;
+  background:transparent;
 }
 
 /* ==========================================================
