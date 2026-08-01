@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../styles/Apply.css";
+import { supabase } from "../lib/supabase";
 
+import { toast } from "sonner";
 export default function Apply({ jobs, loading }) {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -93,6 +95,7 @@ export default function Apply({ jobs, loading }) {
         e.target.value = "";
         return;
       }
+      
 
       setForm((prev) => ({
         ...prev,
@@ -108,13 +111,59 @@ export default function Apply({ jobs, loading }) {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log(form);
+  const fileName = `${Date.now()}-${form.resume.name}`;
 
-    alert("Application submitted successfully.");
-  };
+  const { data: uploadData, error: uploadError } =
+    await supabase.storage
+      .from("resumes")
+      .upload(fileName, form.resume);
+
+  if (uploadError) throw uploadError;
+
+  const { data: publicData } = supabase.storage
+    .from("resumes")
+    .getPublicUrl(uploadData.path);
+
+  const { data, error } = await supabase
+  .from("Xyphx-Career")
+  .insert([
+    {
+        job_id: String(job.id),
+  first_name: form.firstName,
+  last_name: form.lastName,
+  email: form.email,
+  phone: form.phone,
+  current_location: form.location,
+  linkedin: form.linkedin,
+  portfolio: form.portfolio,
+  education: form.education,
+  graduation_year: Number(form.graduationYear),
+  university: form.university,
+  relocate: form.relocate,
+  resume_url: publicData.publicUrl,
+  cover_letter: "",
+    },
+  ])
+  .select();
+
+console.log("DATA:", data);
+console.log("ERROR:", error);
+
+if (error) {
+  console.error(error);
+  toast.error(error.message);
+  return;
+}
+
+toast.success("Application submitted", {
+  description:
+    "We've received your application. Our recruitment team will review it shortly.",
+});
+
+}; 
 
   return (
     <main className="apply-page">
@@ -338,6 +387,18 @@ export default function Apply({ jobs, loading }) {
                     value={form.visa}
                     onChange={handleChange}
                   >
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+                <div className="field">
+                  <label>Willing To Relocate *</label>
+                 <select
+    name="relocate"
+    value={form.relocate}
+    onChange={handleChange}
+>
                     <option value="">Select</option>
                     <option>Yes</option>
                     <option>No</option>

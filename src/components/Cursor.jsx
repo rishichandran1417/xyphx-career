@@ -12,23 +12,13 @@ export default function Cursor() {
       return;
     }
 
-    let mouse = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-    };
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let dot = { x: mouse.x, y: mouse.y };
+    let ring = { x: mouse.x, y: mouse.y };
 
-    let dot = {
-      x: mouse.x,
-      y: mouse.y,
-    };
-
-    let ring = {
-      x: mouse.x,
-      y: mouse.y,
-    };
-
-    const dotSpeed = 0.45;
-    const ringSpeed = 0.08;
+    // 1. MASSIVE SPEED DIFFERENCE FOR MAXIMUM SEPARATION
+    const dotSpeed = 1;      // Dot sticks exactly to the mouse instantly
+    const ringSpeed = 0.006;  // Ring heavily lags behind
 
     const move = (e) => {
       mouse.x = e.clientX;
@@ -40,19 +30,21 @@ export default function Cursor() {
     let raf;
 
     const animate = () => {
-      // Dot follows mouse
+      // Both track the raw mouse
       dot.x += (mouse.x - dot.x) * dotSpeed;
       dot.y += (mouse.y - dot.y) * dotSpeed;
 
-      // Ring follows dot
-      ring.x += (dot.x - ring.x) * ringSpeed;
-      ring.y += (dot.y - ring.y) * ringSpeed;
+      ring.x += (mouse.x - ring.x) * ringSpeed;
+      ring.y += (mouse.y - ring.y) * ringSpeed;
 
-      dotRef.current.style.transform =
-        `translate3d(${dot.x - 3}px, ${dot.y - 3}px, 0)`;
-
-      ringRef.current.style.transform =
-        `translate3d(${ring.x - 14}px, ${ring.y - 14}px, 0)`;
+      // 2. BULLETPROOF CENTERING
+      // translate(-50%, -50%) forces them to stay perfectly centered regardless of their width/height
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${dot.x}px, ${dot.y}px, 0) translate(-50%, -50%)`;
+      }
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ring.x}px, ${ring.y}px, 0) translate(-50%, -50%)`;
+      }
 
       raf = requestAnimationFrame(animate);
     };
@@ -60,17 +52,17 @@ export default function Cursor() {
     animate();
 
     const interactive = document.querySelectorAll(
-      "a,button,.btn,input,textarea,select"
+      "a, button, .btn, input, textarea, select"
     );
 
     const enter = () => {
-      ringRef.current.classList.add("cursor-hover");
-      dotRef.current.classList.add("cursor-hover");
+      ringRef.current?.classList.add("cursor-hover");
+      dotRef.current?.classList.add("cursor-hover");
     };
 
     const leave = () => {
-      ringRef.current.classList.remove("cursor-hover");
-      dotRef.current.classList.remove("cursor-hover");
+      ringRef.current?.classList.remove("cursor-hover");
+      dotRef.current?.classList.remove("cursor-hover");
     };
 
     interactive.forEach((el) => {
@@ -81,7 +73,6 @@ export default function Cursor() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", move);
-
       interactive.forEach((el) => {
         el.removeEventListener("mouseenter", enter);
         el.removeEventListener("mouseleave", leave);

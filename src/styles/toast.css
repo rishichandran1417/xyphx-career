@@ -1,0 +1,25 @@
+.Toastify__toast {
+  border-radius: 18px;
+  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,.95);
+  color: #111827;
+  border: 1px solid rgba(110,86,255,.18);
+  box-shadow:
+    0 12px 45px rgba(110,86,255,.12),
+    0 2px 10px rgba(0,0,0,.06);
+  font-family: inherit;
+  min-height: 72px;
+}
+
+.Toastify__toast-body{
+  font-size:15px;
+  font-weight:500;
+}
+
+.Toastify__progress-bar{
+  background:#6E56FF;
+}
+
+.Toastify__close-button{
+  color:#6E56FF;
+}

@@ -27,12 +27,20 @@
 
 /* =========================
    HERO
+   NOTE: top padding is 100px (not the original 48px) to clear a
+   fixed/sticky site nav — this used to live as a duplicate rule at
+   the bottom of the file, which also meant it silently overrode the
+   @media(max-width:900px) hero-padding rule below at every screen
+   size, since a plain rule beats a media-query rule of equal
+   specificity when it comes later in the file. Consolidated here so
+   the mobile breakpoints at the bottom of this file are the ones
+   that actually win on small screens.
 ========================= */
 
 .apply-hero{
   position: relative;
   overflow: hidden;
-  padding: 48px 0 24px;
+  padding: 100px 0 24px;
 
   background:
     radial-gradient(circle at top right,
@@ -82,11 +90,25 @@
   z-index: 1;
 }
 
+section.pad {
+  padding-top: 24px;
+  padding-bottom: 56px;
+}
+
+.job-content {
+  margin-top: 0;
+}
+
 /* =========================
    BACK BUTTON
+   (.back-btn and .job-back were duplicated with identical rules in
+   the original file — kept as one shared selector so there's a
+   single source of truth and both class names still work if either
+   is used in markup.)
 ========================= */
 
-.back-btn{
+.back-btn,
+.job-back{
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -108,6 +130,9 @@
   position: relative;
   overflow: hidden;
 
+  /* 44px is the standard minimum comfortable touch target */
+  min-height: 44px;
+
   transition:
     background .3s ease,
     color .3s ease,
@@ -115,19 +140,17 @@
     box-shadow .3s ease;
 }
 
-.back-btn:hover{
+.back-btn:hover,
+.job-back:hover{
   background: #6E56FF;
   color: #fff;
 
-  
   box-shadow: 0 12px 30px rgba(110, 86, 255, .25);
 }
 
 .back-btn svg{
   transition: transform .25s ease;
 }
-
-
 
 /* =========================
    JOB CARD
@@ -136,8 +159,6 @@
 .job-card{
 
   position:relative;
-
-  
 
   border:1px solid var(--line);
 
@@ -212,13 +233,12 @@
 }
 
 .job-meta{
-
   display:flex;
-
+  justify-content:center;
+  align-items:center;
+  gap:16px;
   flex-wrap:wrap;
-
-  gap:14px;
-
+  margin-top:32px;
 }
 
 .job-meta span{
@@ -271,6 +291,20 @@
 
   box-shadow:var(--shadow);
 
+  animation:fadeUp .5s ease;
+
+}
+
+/* The floating card that overlaps the hero — also consolidated from
+   a duplicate rule at the bottom of the original file, for the same
+   cascade-order reason noted above on .apply-hero. */
+.apply-form-card{
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: var(--shadow-lg);
+  margin-top: -48px;
 }
 
 .form-title{
@@ -610,6 +644,12 @@ input[type=number]::-webkit-outer-spin-button{
 
     margin-bottom:16px;
 
+    font-size:.93rem;
+
+    line-height:1.7;
+
+    color:#4B5563;
+
     transition:.25s;
 
 }
@@ -635,16 +675,6 @@ input[type=number]::-webkit-outer-spin-button{
     cursor:pointer;
 
     flex-shrink:0;
-
-}
-
-.agree{
-
-    font-size:.93rem;
-
-    line-height:1.7;
-
-    color:#4B5563;
 
 }
 
@@ -706,176 +736,10 @@ input[type=number]::-webkit-outer-spin-button{
 
 /* =========================
    VALIDATION
-========================= */
-
-.field input:invalid:not(:placeholder-shown){
-
-    border-color:#EF4444;
-
-}
-
-.field input:valid{
-
-    border-color:#22C55E;
-
-}
-
-/* Keep file inputs neutral */
-
-.field input[type=file]{
-
-    border-color:rgba(110,86,255,.22);
-
-}
-
-/* =========================
-   AUTOFILL
-========================= */
-
-input:-webkit-autofill{
-
-    -webkit-box-shadow:
-        0 0 0 1000px white inset;
-
-}
-
-/* =========================
-   SCROLL ANIMATION
-========================= */
-
-.form-section{
-
-    animation:fadeUp .5s ease;
-
-}
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(20px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width:900px){
-
-    .apply-hero{
-
-        padding:90px 0 50px;
-
-    }
-
-    .job-card{
-
-        padding:34px;
-
-    }
-
-    .apply-form-section{
-
-        padding:60px 0;
-
-    }
-
-    .form-section{
-
-        padding:28px;
-
-    }
-
-    .grid{
-
-        grid-template-columns:1fr;
-
-        gap:18px;
-
-    }
-
-}
-
-@media (max-width:600px){
-
-    .job-card{
-
-        padding:24px;
-
-        border-radius:18px;
-
-    }
-
-    .job-card h1{
-
-        font-size:2rem;
-
-    }
-
-    .job-meta{
-
-        gap:10px;
-
-    }
-
-    .job-meta span{
-
-        font-size:.8rem;
-
-    }
-
-    .form-section{
-
-        padding:22px;
-
-        border-radius:18px;
-
-    }
-
-    .form-title{
-
-        font-size:1.4rem;
-
-    }
-
-    .submit-btn{
-
-        height:56px;
-
-    }
-
-}
-
-/* =========================
-   REDUCED MOTION
-========================= */
-
-@media (prefers-reduced-motion:reduce){
-
-    *{
-
-        animation:none !important;
-
-        transition:none !important;
-
-    }
-
-}
-/* =========================
-   VALIDATION
+   (kept as a single consolidated block — the original file defined
+   this twice with the second copy fully overriding the first, so
+   only the 2px-border / tinted-background version ever actually
+   applied. That's the version kept here.)
 ========================= */
 
 .field input:required:invalid,
@@ -919,49 +783,265 @@ input:-webkit-autofill{
     background:#fff;
 
 }
-.apply-hero{
-  padding: 100px 0 24px;
+
+/* Keep file inputs neutral (never flagged red/green) */
+.field input[type=file]{
+
+    border-color:rgba(110,86,255,.22) !important;
+    background:#FCFCFE !important;
+
 }
 
-section.pad {
-  padding-top: 24px;
-  padding-bottom: 56px;
+/* =========================
+   AUTOFILL
+========================= */
+
+input:-webkit-autofill{
+
+    -webkit-box-shadow:
+        0 0 0 1000px white inset;
+
 }
 
-.job-content {
-  margin-top: 0;
-}
-.apply-form-card{
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  padding: 48px;
-  box-shadow: var(--shadow-lg);
-  margin-top: -48px;
-}
-.job-back{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+/* =========================
+   SCROLL ANIMATION
+========================= */
 
-  padding:10px 18px;
-  margin-bottom:36px;
+@keyframes fadeUp{
 
-  border:none;
-  border-radius:999px;
+    from{
 
-  background:#f5f3ff;
-  color:#6E56FF;
+        opacity:0;
 
-  font-size:.9rem;
-  font-weight:600;
+        transform:translateY(20px);
 
-  cursor:pointer;
+    }
 
-  transition:.25s ease;
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
 }
 
-.job-back:hover{
-  background:#6E56FF;
-  color:#fff;
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+    }
+
+}
+
+/* ==========================================================================
+   MOBILE
+   Placed last on purpose so these are the rules that win at each
+   breakpoint — nothing above this point should re-declare .apply-hero,
+   .apply-form-card, .job-card, .grid, .field input, or .submit-btn
+   outside of a media query, or it'll silently undo these again.
+   ========================================================================== */
+
+@media (max-width:900px){
+
+    .apply-hero{
+
+        padding:80px 0 40px;
+
+    }
+
+    .job-card{
+
+        padding:34px;
+
+    }
+
+    .apply-form-section{
+
+        padding:0 0 60px;
+
+    }
+
+    .apply-form-card{
+
+        padding:32px;
+
+        margin-top:-32px;
+
+    }
+
+    .form-section{
+
+        padding:28px;
+
+    }
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+        gap:18px;
+
+    }
+
+}
+
+@media (max-width:600px){
+
+    .apply-hero{
+
+        padding:72px 0 32px;
+
+    }
+
+    .job-card{
+
+        padding:24px;
+
+        border-radius:18px;
+
+    }
+
+    .job-card h1{
+
+        font-size:2rem;
+
+    }
+
+    .job-meta{
+
+        gap:10px;
+
+    }
+
+    .job-meta span{
+
+        padding:8px 14px;
+
+        font-size:.8rem;
+
+    }
+
+    .apply-form-card{
+
+        padding:22px;
+
+        margin-top:-24px;
+
+        border-radius:20px;
+
+    }
+
+    .form-section{
+
+        padding:22px;
+
+        border-radius:18px;
+
+    }
+
+    .form-title{
+
+        font-size:1.4rem;
+
+    }
+
+    /* 16px is the floor that stops iOS Safari auto-zooming a field
+       into focus — .95rem (~15.2px) sits just under that line. */
+    .field input,
+    .field select,
+    .field textarea{
+
+        font-size:16px;
+        min-height:52px;
+
+    }
+
+    .field textarea{
+
+        min-height:140px;
+
+    }
+
+    .field input[type=file]{
+
+        min-height:96px;
+        padding:16px;
+
+    }
+
+    .field input[type=file]::file-selector-button{
+
+        display:block;
+        width:100%;
+        margin:0 0 10px;
+        text-align:center;
+
+    }
+
+    .back-btn,
+    .job-back{
+
+        margin-bottom:24px;
+
+    }
+
+    .agree{
+
+        padding:14px 16px;
+        gap:12px;
+
+    }
+
+    .submit-btn{
+
+        height:56px;
+
+    }
+
+    /* Keep the submit button reachable with one thumb without making
+       every page scroll under a fixed bar — only pin it once the
+       browser supports sticky, and release it back to normal flow
+       on wider screens via the 900px query's default static value. */
+    @supports (position: sticky){
+
+        .submit-area{
+
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            padding: 12px 0 16px;
+            box-shadow: 0 -8px 20px rgba(17,24,39,.06);
+
+        }
+
+    }
+
+}
+
+@media (max-width:380px){
+
+    .job-card h1{
+
+        font-size:1.7rem;
+
+    }
+
+    .apply-form-card{
+
+        padding:16px;
+
+    }
+
+    .form-section{
+
+        padding:18px;
+
+    }
+
 }
