@@ -33,15 +33,7 @@ const navigate = useNavigate();
       >
         ← Back
       </button>
-
-      <div className="job-meta">
-        <span>{job.team}</span>
-        <span>📍 {job.location}</span>
-        <span>{job.employmentType}</span>
-        <span>💰 {job.salary}</span>
-      </div>
-
-      <div className="job-header">
+         <div className="job-header">
         <h1>{job.title}</h1>
 
         <Link
@@ -51,6 +43,14 @@ const navigate = useNavigate();
           Apply Now
         </Link>
       </div>
+      <div className="job-meta">
+        <span>{job.team}</span>
+        <span>📍 {job.location}</span>
+        <span>{job.employmentType}</span>
+        <span>💰 {job.salary}</span>
+      </div>
+
+     
 
     </div>
   </div>

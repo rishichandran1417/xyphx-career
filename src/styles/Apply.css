@@ -18,11 +18,7 @@
 
 .apply-page{
   min-height:100vh;
-  background:linear-gradient(
-      180deg,
-      #FCFCFD 0%,
-      #F8FAFC 100%
-  );
+  
 }
 
 /* =========================
@@ -40,7 +36,7 @@
 .apply-hero{
   position: relative;
   overflow: hidden;
-  padding: 100px 0 24px;
+  padding: 100px 0 0;
 
   background:
     radial-gradient(circle at top right,
@@ -267,11 +263,7 @@ section.pad {
 
 }
 
-.apply-form{
 
-  background:transparent;
-
-}
 
 /* =========================
    SECTION CARDS
@@ -279,7 +271,7 @@ section.pad {
 
 .form-section{
 
-  background:#fff;
+  
 
   border:1px solid var(--line);
 
@@ -299,12 +291,13 @@ section.pad {
    a duplicate rule at the bottom of the original file, for the same
    cascade-order reason noted above on .apply-hero. */
 .apply-form-card{
-  background: #fff;
+  
   border: 1px solid var(--line);
   border-radius: 28px;
   padding: 48px;
   box-shadow: var(--shadow-lg);
   margin-top: -48px;
+  border:#6E56FF;
 }
 
 .form-title{
@@ -384,7 +377,7 @@ section.pad {
 
     padding:0 18px;
 
-    border:1px solid #D9DEE7;
+    border:#6E56FF;
 
     border-radius:14px;
 
@@ -748,7 +741,7 @@ input[type=number]::-webkit-outer-spin-button{
 
     border:2px solid #EF4444;
 
-    background:#FEF2F2;
+    
 
 }
 
@@ -756,7 +749,7 @@ input[type=number]::-webkit-outer-spin-button{
 .field select:required:valid,
 .field textarea:required:valid{
 
-    border:2px solid #22C55E;
+   border:#6E56FF;
 
 }
 
