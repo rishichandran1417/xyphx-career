@@ -189,7 +189,7 @@ duration:.7
 
 >
           <a className="btn btn-primary" href="#roles">See open roles</a>
-          <a className="btn btn-ghost" href="#mission">Read our thesis</a>
+          
         </motion.div>
       </div>
     </section>

@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]/\\<>|_-+=*#";
 
 export default function Navbar() {
-  const [word, setWord] = useState('XyphX');
+  const [word, setWord] = useState('XYPHX');
   const location = useLocation();
 
 const goToSection = (section) => {
@@ -21,7 +21,7 @@ const [menuOpen, setMenuOpen] = useState(false);
   function scramble() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
-    const target = 'XyphX';
+    const target = 'XYPHX';
     const duration = 450;
     const start = performance.now();
 
@@ -55,53 +55,35 @@ const [menuOpen, setMenuOpen] = useState(false);
              ☰
            </button>
                <nav className="nav-links">
-                <Link className="nav-item" to="/#mission">
-             <span>01</span> Mission
-           </Link>
+                
 
-            <Link className="nav-item" to="/#teams">
-              <span>02</span> Teams
-  </Link>
-
-  <Link className="nav-item" to="/#life">
-    <span>03</span> Life here
-  </Link>
+  
 
   <Link className="nav-cta" to="/#roles">
-    Open Roles ↗
+    Open Roles 
   </Link>
 </nav>
          </div>
     </header>
 
     <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
-      <button
-        className="close-btn"
-        onClick={() => setMenuOpen(false)}
-      >
-        ✕
-      </button>
+  <div className="mobile-header">
+    <button
+      className="close-btn"
+      onClick={() => setMenuOpen(false)}
+    >
+      ✕
+    </button>
+  </div>
 
-      <Link to="/#mission" onClick={() => setMenuOpen(false)}>
-        Mission
-      </Link>
-
-      <Link to="/#teams" onClick={() => setMenuOpen(false)}>
-        Teams
-      </Link>
-
-      <Link to="/#life" onClick={() => setMenuOpen(false)}>
-        Life Here
-      </Link>
-
-      <Link
-        className="mobile-btn"
-        to="/#roles"
-        onClick={() => setMenuOpen(false)}
-      >
-        Open Roles
-      </Link>
-    </div>
+  <Link
+    className="mobile-btn"
+    to="/#roles"
+    onClick={() => setMenuOpen(false)}
+  >
+    Open Roles
+  </Link>
+</div>
   </>
 );
 }

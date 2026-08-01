@@ -120,21 +120,21 @@ body::before {
   pointer-events: none;
 }
 
-body::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 900px;
-  z-index: -1;
-  background-image: url("https://xyphx.com/logo.png");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 700px;
-  opacity: 0.07;
-  filter: grayscale(100%);
-  pointer-events: none;
+.bg-image{
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background-image: url("https://xyphx.com/logo.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 700px;
+
+    opacity: .06;
+    filter: grayscale(100%);
+
+    pointer-events: none;
+    will-change: transform;
 }
 h1,h2,h3{
   margin:0;
@@ -468,7 +468,7 @@ cursor: pointer;
 .hero{
   overflow:hidden;
   border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 100%);
+  background:transparent;
 }
 
 #field{
@@ -684,7 +684,7 @@ section.pad:nth-child(odd){
 ========================================================== */
 
 footer{
-  background:#FFFFFF;
+ 
   padding:100px 0 60px;
 }
 
@@ -1082,7 +1082,7 @@ footer .btn{
   margin:24px auto 60px;
   padding:48px;
 text-align: center;
-  background:#fff;
+  background:transparent;
   border:1px solid #e5e7eb;
   border-radius:24px;
   box-shadow:0 8px 30px rgba(17,24,39,.06);
@@ -1294,34 +1294,113 @@ text-align: center;
   }
 }
 /* Hide hamburger on desktop */
-.hamburger {
-  display: none;
+/* Hide hamburger on desktop */
+.hamburger{
+    display:none;
 }
 
-/* Show only on mobile */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
+/* Hide desktop nav on mobile */
+@media (max-width:768px){
 
-  .hamburger {
+    .nav-links{
+        display:none;
+    }
+
+    .hamburger{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        width:44px;
+        height:44px;
+
+        border:none;
+        background:transparent;
+        font-size:30px;
+        cursor:pointer;
+    }
+}
+
+/* Mobile drawer */
+.mobile-menu{
+    position: fixed;
+    top: 0;
+    right: -100%;
+
+    width: min(320px, 85vw);
+    height: 100vh;
+
+    background: #fff;
+    padding: 24px;
+
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    width: 44px;
-    height: 44px;
+    transition: right .35s ease;
+    z-index: 99999;
 
+    box-shadow: -20px 0 60px rgba(0,0,0,.12);
+}
+
+.mobile-menu.show{
+    right: 0;
+}
+
+.mobile-header{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+}
+
+.close-btn{
     background: transparent;
     border: none;
-   position:relative;
-    z-index:100001;
-    font-size: 28px;
-    color: var(--paper);
-
+    font-size: 30px;
     cursor: pointer;
-  }
 }
+
+.mobile-btn{
+    width: 100%;
+    height: 52px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 999px;
+
+    background: #6E56FF;
+    color: #fff;
+
+    font-weight: 600;
+}
+.close-btn{
+    position:absolute;
+    top:20px;
+    right:20px;
+
+    border:none;
+    background:none;
+
+    font-size:30px;
+    cursor:pointer;
+}
+
+.mobile-btn{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:48px;
+
+    background:#6E56FF;
+    color:#fff;
+
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:600;
+}
+
 #field{
   position:absolute;
   inset:0;

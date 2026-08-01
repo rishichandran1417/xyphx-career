@@ -3,16 +3,22 @@ import { Routes, Route } from "react-router-dom";
 import Reveal from "./components/Reveal";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Mission from "./components/Mission";
+
 import Teams from "./components/Teams";
 import Roles from "./components/Roles";
-import Benefits from "./components/Benefits";
+;
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Apply from "./components/Apply";
 import JobDetails from "./components/JobDetails";
 import "./styles/App.css";
 import AnimatedCursor from "react-animated-cursor";
+import Background from "./components/Background";
+
+
+
+
+
 function CareersPage({ jobs, loading, error }) {
   const roleTitles = jobs.map((r) => r.title);
 
@@ -22,9 +28,7 @@ function CareersPage({ jobs, loading, error }) {
     <Hero roleTitles={roleTitles} />
   </Reveal>
 
-  <Reveal delay={0.1}>
-    <Mission />
-  </Reveal>
+  
 
   <Reveal delay={0.2}>
     <Teams jobs={jobs} />
@@ -34,9 +38,7 @@ function CareersPage({ jobs, loading, error }) {
     <Roles jobs={jobs} loading={loading} error={error} />
   </Reveal>
 
-  <Reveal delay={0.4}>
-    <Benefits />
-  </Reveal>
+  
 
   <Reveal delay={0.5}>
     <Footer />
@@ -120,6 +122,7 @@ useEffect(() => {
 )}
 
     <ScrollToTop />
+     <Background />
       <Navbar />
 
       <Routes>
