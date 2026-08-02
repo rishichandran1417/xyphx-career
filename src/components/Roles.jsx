@@ -82,8 +82,8 @@ export default function Roles({ jobs, loading, error }) {
                   <span className="tag">{r.salary}</span>
                 </div>
               </div>
-                  <Link
-  to={`/job/${r.id}`}
+               <Link
+  to={`/jobs/${r.id}`}
   className="btn btn-ghost role-apply role-arrow"
   aria-label={`View ${r.title}`}
 >

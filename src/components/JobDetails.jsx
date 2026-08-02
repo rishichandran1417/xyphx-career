@@ -2,8 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function JobDetails({ jobs }) {
   const { id } = useParams();
-const navigate = useNavigate();
-  const job = jobs.find((j) => String(j.id) === String(id));
+  const navigate = useNavigate();
+  const normalizedId = String(id || "").toLowerCase();
+  const job = jobs.find((j) => {
+    const candidateIds = [j.id, j.slug, j.title].filter(Boolean).map((value) => String(value).toLowerCase());
+    return candidateIds.includes(normalizedId);
+  });
 
   if (!job) {
     return (
@@ -64,17 +68,17 @@ const navigate = useNavigate();
               <p>{job.description}</p>
             </div>
 
-            {job.sections.map((section) => (
-              <div className="job-section" key={section.title}>
-                <h2>{section.title}</h2>
+            {(job.sections || []).map((section) => (
+  <div className="job-section" key={section.title}>
+    <h2>{section.title}</h2>
 
-                <ul>
-                  {section.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+    <ul>
+      {(section.items || []).map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  </div>
+))}
 
             <div className="job-section">
               <h2>About Xyphx</h2>

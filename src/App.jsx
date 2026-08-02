@@ -19,6 +19,21 @@ import { supabase } from "./lib/supabase";
 
 
 
+function normalizeJobs(data) {
+  return (data || []).map((job) => {
+    const normalizedId = job.id ?? job.slug ?? job.title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+    return {
+      ...job,
+      id: normalizedId,
+      slug: normalizedId,
+      employmentType: job.employmenttype ?? job.employment_type,
+      aboutCompany: job.aboutcompany ?? job.about_company,
+      sections: job.sections || []
+    };
+  });
+}
+
 function CareersPage({ jobs, loading, error }) {
   const roleTitles = jobs.map((r) => r.title);
 
@@ -53,27 +68,49 @@ export default function App() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-    useEffect(() => {
-  async function loadJobs() {
-    setLoading(true);
 
-    const { data, error } = await supabase
-      .from("jobs")
-      .select("*")
-      .order("created_at", { ascending: false });
+  useEffect(() => {
+    async function loadJobs() {
+      setLoading(true);
+      setError(null);
 
-    if (error) {
-      console.error(error);
-      setError(error.message);
-    } else {
-      setJobs(data);
+      try {
+        if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY) {
+          throw new Error("Supabase env vars are missing");
+        }
+
+        const { data, error } = await supabase
+          .from("jobs")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        setJobs(normalizeJobs(data || []));
+      } catch (supabaseError) {
+        console.warn("Falling back to local job data:", supabaseError);
+
+        try {
+          const response = await fetch("/jobs.json");
+          if (!response.ok) {
+            throw new Error(`Failed to load fallback jobs: ${response.status}`);
+          }
+
+          const fallbackJobs = await response.json();
+          setJobs(normalizeJobs(fallbackJobs));
+        } catch (fallbackError) {
+          console.error(fallbackError);
+          setError("Unable to load jobs right now.");
+        }
+      } finally {
+        setLoading(false);
+      }
     }
 
-    setLoading(false);
-  }
-
-  loadJobs();
-}, []);
+    loadJobs();
+  }, []);
 
   const [showCursor, setShowCursor] = useState(false);
 
