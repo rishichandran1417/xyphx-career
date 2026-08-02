@@ -16,7 +16,8 @@ export default function Roles({ jobs, loading, error }) {
 
   const filtered = jobs.filter(
     (r) =>
-      (activeTeam === 'All' || r.team === activeTeam) &&
+      r.status === 'open' &&
+      (activeTeam === 'All' || r.team === activeTeam || r.department === activeTeam) &&
       (activeLoc === 'All' || r.location === activeLoc)
   );
 
@@ -82,8 +83,8 @@ export default function Roles({ jobs, loading, error }) {
                   <span className="tag">{r.salary}</span>
                 </div>
               </div>
-               <Link
-  to={`/jobs/${r.id}`}
+              <Link
+  to={`/jobs/${r.slug ?? r.id}`}
   className="btn btn-ghost role-apply role-arrow"
   aria-label={`View ${r.title}`}
 >

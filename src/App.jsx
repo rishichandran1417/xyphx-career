@@ -27,9 +27,11 @@ function normalizeJobs(data) {
       ...job,
       id: normalizedId,
       slug: normalizedId,
+      team: job.team ?? job.department ?? job.department_name ?? '',
       employmentType: job.employmenttype ?? job.employment_type,
       aboutCompany: job.aboutcompany ?? job.about_company,
-      sections: job.sections || []
+      sections: job.sections || [],
+      status: String(job.status ?? job.state ?? 'open').toLowerCase()
     };
   });
 }

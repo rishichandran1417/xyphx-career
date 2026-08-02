@@ -70,6 +70,38 @@ export default function Apply({ jobs, loading }) {
     );
   }
 
+  const isClosed = String(job.status || "").toLowerCase() === "closed";
+
+  if (isClosed) {
+    return (
+      <main className="apply-page">
+        <div
+          className="wrap"
+          style={{
+            padding: "120px 0",
+            textAlign: "center",
+          }}
+        >
+          <h1>This position is closed</h1>
+
+          <p>
+            Applications are no longer being accepted for this role. Please
+            browse other open positions on the Careers page.
+          </p>
+
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+            <Link className="btn btn-primary" to="/">
+              Back to Careers
+            </Link>
+            <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
+              Back
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -150,7 +182,13 @@ export default function Apply({ jobs, loading }) {
   .select();
 
 console.log("DATA:", data);
-console.log("ERROR:", error);
+if (error) {
+  console.log(error);
+  console.dir(error);
+  console.error(error);
+  toast.error(error.message);
+  return;
+}
 
 if (error) {
   console.error(error);

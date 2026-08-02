@@ -17,7 +17,11 @@ export default function Teams({ jobs }) {
         </div>
         <div className="teams-grid">
           {TEAMS.map((t) => {
-            const count = jobs.filter((r) => r.team === t.id).length;
+            const count = jobs.filter(
+              (r) =>
+                (r.team === t.id || r.department === t.id) &&
+                r.status === 'open'
+            ).length;
             return (
               <div className="team-card" key={t.id}>
           
