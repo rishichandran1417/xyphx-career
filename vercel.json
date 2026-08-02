@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/admin",
+      "destination": "https://xyphx-admin.vercel.app/"
+    },
+    {
+      "source": "/admin/",
+      "destination": "https://xyphx-admin.vercel.app/"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "https://xyphx-admin.vercel.app/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
