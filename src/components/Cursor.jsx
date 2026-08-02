@@ -16,9 +16,9 @@ export default function Cursor() {
     let dot = { x: mouse.x, y: mouse.y };
     let ring = { x: mouse.x, y: mouse.y };
 
-    // 1. MASSIVE SPEED DIFFERENCE FOR MAXIMUM SEPARATION
+    // 1. SPEED TUNING FOR SMOOTH FOLLOW WITHOUT SLOW DRAG
     const dotSpeed = 1;      // Dot sticks exactly to the mouse instantly
-    const ringSpeed = 0.006;  // Ring heavily lags behind
+    const ringSpeed = 0.18;  // Ring follows with a small, pleasant delay
 
     const move = (e) => {
       mouse.x = e.clientX;

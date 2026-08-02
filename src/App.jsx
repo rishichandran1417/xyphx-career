@@ -12,10 +12,10 @@ import ScrollToTop from "./components/ScrollToTop";
 import Apply from "./components/Apply";
 import JobDetails from "./components/JobDetails";
 import "./styles/App.css";
-import AnimatedCursor from "react-animated-cursor";
+import Cursor from "./components/Cursor";
 import Background from "./components/Background";
 
-
+import { supabase } from "./lib/supabase";
 
 
 
@@ -48,81 +48,66 @@ function CareersPage({ jobs, loading, error }) {
 }
 
 export default function App() {
+ 
+
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+    useEffect(() => {
+  async function loadJobs() {
+    setLoading(true);
 
-  useEffect(() => {
-    let cancelled = false;
+    const { data, error } = await supabase
+      .from("jobs")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    fetch("/jobs.json")
-      .then((res) => {
-        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        if (!cancelled) setJobs(data);
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+    if (error) {
+      console.error(error);
+      setError(error.message);
+    } else {
+      setJobs(data);
+    }
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    setLoading(false);
+  }
+
+  loadJobs();
+}, []);
+
   const [showCursor, setShowCursor] = useState(false);
 
-useEffect(() => {
-  const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+  useEffect(() => {
+    const media = window.matchMedia("(pointer: coarse)");
 
-  const update = () => setShowCursor(media.matches);
+    const update = () => setShowCursor(!media.matches);
 
-  update();
+    update();
 
-  media.addEventListener("change", update);
+    const listener = (event) => setShowCursor(!event.matches);
 
-  return () => media.removeEventListener("change", update);
-}, []);
+    if (media.addEventListener) {
+      media.addEventListener("change", listener);
+    } else {
+      media.addListener(listener);
+    }
+
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener("change", listener);
+      } else {
+        media.removeListener(listener);
+      }
+    };
+  }, []);
 
   return (
     <>
-          {showCursor && (
-  <AnimatedCursor
-    innerSize={6}
-    outerSize={28}
-    color="110,86,255"
-    outerAlpha={0}
-    innerScale={1}
-    outerScale={1.8}
-    trailingSpeed={4}
-    zIndex={1000000} 
-    clickables={[
-      "a",
-      "button",
-      ".btn",
-      ".nav-cta",
-      ".hamburger",
-      "input",
-      "textarea",
-      "select"
-    ]}
-    innerStyle={{
-      backgroundColor: "#6E56FF",
-    }}
-    outerStyle={{
-      border: "1.5px solid #6E56FF",
-      backgroundColor: "transparent",
-    }}
-  />
-)}
+      <ScrollToTop />
 
-    <ScrollToTop />
-     <Background />
+      {showCursor && <Cursor />}
+
+      <Background />
       <Navbar />
 
       <Routes>
@@ -137,15 +122,8 @@ useEffect(() => {
           }
         />
 
-        <Route
-          path="/job/:id"
-          element={<JobDetails jobs={jobs} />}
-        />
-
-        <Route
-          path="/apply/:id"
-          element={<Apply jobs={jobs} />}
-        />
+        <Route path="/jobs/:id" element={<JobDetails jobs={jobs} />} />
+        <Route path="/apply/:id" element={<Apply jobs={jobs} />} />
       </Routes>
     </>
   );

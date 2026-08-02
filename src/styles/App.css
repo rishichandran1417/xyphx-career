@@ -21,14 +21,20 @@
 /* Hide the default cursor */
 html,
 body,
-@media (hover: hover) and (pointer: fine) {
+* {
+  cursor: none;
+}
+
+/* Hide default cursor on hover devices */
+@media (pointer: coarse) {
   html,
   body,
   * {
-    cursor: none;
+    cursor: auto;
   }
-} 
-/* Hide default cursor */
+}
+
+/* Ensure navbar and interactive elements keep the custom cursor hidden */
 body, a, button, input, textarea, select {
   cursor: none !important;
 }
@@ -243,8 +249,8 @@ section{
     align-items:center;
     justify-content:center;
 
-    height:46px;
-    padding:0 28px;
+     height:38px;          /* was 46px */
+    padding:0 18px;
 
     border:1px solid rgba(17,24,39,.12);
     border-radius:999px;
@@ -444,8 +450,8 @@ cursor: pointer;
 
 .btn-primary:hover{
   background:#6E18D2;
-  transform:translateY(-2px);
-  box-shadow:0 18px 40px rgba(94,1,179,.35);
+  
+  
 }
 
 .btn-ghost{
@@ -721,7 +727,7 @@ footer .btn{
   padding-top:26px;
 
   border-top:1px solid var(--line);
-
+  
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -736,9 +742,7 @@ footer .btn{
   transition:color .25s ease;
 }
 
-.foot-bottom a:hover{
-  color:var(--violet);
-}
+
 
 /* ==========================================================
    SCROLLBAR
@@ -1444,11 +1448,7 @@ display:inline-flex;
 }
 
 
-.nav *,
-.nav a,
-.nav button{
-  cursor: pointer;
-}
+
 .acknowledgement-item{
     display:flex;
     align-items:flex-start;
