@@ -289,6 +289,23 @@ section{
 
   box-shadow: 0 12px 28px rgba(110,86,255,.25);
 }
+
+.maintenance-banner{
+  position: fixed;
+  top: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.95);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.2);
+}
 .nav-cta::before{
   content:"";
   position:absolute;
@@ -326,6 +343,10 @@ section{
   appearance: none;
   -webkit-appearance: none;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   background: transparent;
   border: none;
   outline: none;
@@ -333,21 +354,20 @@ section{
 
   padding: 0;
   margin: 0;
-cursor: pointer;
+  cursor: pointer;
+  text-decoration: none;
 
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1;
+  transition: transform .25s ease;
+}
 
-  color: var(--paper);
-
-  transition: color .25s ease, transform .25s ease;
+.wordmark img{
+  display: block;
+  height: 28px;
+  width: auto;
 }
 
 .wordmark:hover{
-  color: var(--violet);
+  transform: translateY(-1px);
 }
 
 .wordmark:focus,
@@ -1475,4 +1495,29 @@ display:inline-flex;
     font-size:15px;
 }
 
+}
+.maintenance-popup {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }

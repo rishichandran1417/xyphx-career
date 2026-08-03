@@ -66,7 +66,7 @@ export default function Roles({ jobs, loading, error }) {
             <div className="empty-state">$ could not load roles/jobs.json — try refreshing.</div>
           )}
           {!loading && !error && filtered.length === 0 && (
-            <div className="empty-state">$ no roles match that filter — try clearing it.</div>
+            <div className="empty-state">no jobs available</div>
           )}
           {!loading && !error && filtered.map((r, index) => (
             
