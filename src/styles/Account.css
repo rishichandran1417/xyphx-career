@@ -1,0 +1,11 @@
+.account-page { min-height: 100vh; padding: 140px 24px 80px; }
+.account-wrap { width: min(760px, 100%); margin: 0 auto; }
+.account-back { display: inline-flex; margin-bottom: 28px; color: var(--violet); font-weight: 700; }
+.account-back:hover { text-decoration: underline; }
+.account-wrap h1 { margin: 12px 0 10px; font-size: clamp(2rem, 5vw, 3.4rem); }
+.account-description { max-width: 580px; color: var(--muted); }
+.account-card { margin-top: 28px; padding: 28px; border: 1px solid var(--line-strong); border-radius: 14px; background: #fff; color: var(--muted); line-height: 1.6; }
+.account-user { margin-top: 0; color: var(--paper); }
+.account-action { display: inline-flex; margin-top: 12px; color: var(--violet); font-weight: 700; }
+.account-action:hover { text-decoration: underline; }
+@media (max-width: 560px) { .account-page { padding: 110px 18px 48px; } .account-card { padding: 20px; } }

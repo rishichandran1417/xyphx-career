@@ -15,6 +15,8 @@ import JobDetails from "./components/JobDetails";
 import "./styles/App.css";
 import Cursor from "./components/Cursor";
 import Background from "./components/Background";
+import AuthModal from "./components/auth/AuthModal";
+import AccountPage from "./components/AccountPage";
 
 import { supabase } from "./lib/supabase";
 import { useAuth } from "./context/AuthContext";
@@ -164,6 +166,7 @@ export default function App() {
 
       <Background />
       <Navbar />
+      <AuthModal />
 
       <Routes>
         <Route
@@ -180,6 +183,9 @@ export default function App() {
         <Route path="/jobs/:id" element={<JobDetails jobs={jobs} />} />
         <Route path="/apply/:id" element={<Apply jobs={jobs} />} />
         <Route path="/applications" element={<Applications jobs={jobs} />} />
+        <Route path="/dashboard" element={<AccountPage page="dashboard" />} />
+        <Route path="/saved-jobs" element={<AccountPage page="saved-jobs" />} />
+        <Route path="/settings" element={<AccountPage page="settings" />} />
       </Routes>
     </>
   );

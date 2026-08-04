@@ -143,6 +143,7 @@ body::before {
 
     pointer-events: none;
     will-change: transform;
+    transform: translate3d(0, var(--background-parallax, 0px), 0) scale(var(--background-scale, 1));
 }
 h1,h2,h3{
   margin:0;
@@ -967,6 +968,10 @@ footer .btn{
     animation:none;
   }
 
+  .bg-image{
+    transform:none;
+  }
+
 }
 /* ==========================================================
    ROLES
@@ -1471,34 +1476,13 @@ text-align: center;
 @media (max-width:768px){
 
   .nav-links{
-    display:none;
+    display:flex;
   }
 }
-/* Hide hamburger on desktop */
-/* Hide hamburger on desktop */
-.hamburger{
-    display:none;
-}
-
-/* Hide desktop nav on mobile */
 @media (max-width:768px){
 
     .nav-links{
-        display:none;
-    }
-
-    .hamburger{
         display:flex;
-        align-items:center;
-        justify-content:center;
-
-        width:44px;
-        height:44px;
-
-        border:none;
-        background:transparent;
-        font-size:30px;
-        cursor:pointer;
     }
 }
 

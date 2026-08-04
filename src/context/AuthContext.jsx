@@ -33,16 +33,35 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
-  const signInWithGoogle = async (redirectPath = window.location.pathname) => {
+  const signInWithProvider = async (provider, redirectPath = `${window.location.pathname}${window.location.search}`) => {
     sessionStorage.setItem("xyphx-careers:return-to", redirectPath);
 
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider,
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: `${window.location.origin}${redirectPath}`,
       },
     });
 
+    if (error) throw error;
+  };
+
+  const signInWithGoogle = (redirectPath) => signInWithProvider("google", redirectPath);
+
+  const signInWithPassword = async (email, password) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+  };
+
+  const signUpWithPassword = async (email, password) => {
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+  };
+
+  const resetPassword = async (email) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}${window.location.pathname}`,
+    });
     if (error) throw error;
   };
 
@@ -59,6 +78,10 @@ export function AuthProvider({ children }) {
         user: session?.user ?? null,
         isLoading,
         signInWithGoogle,
+        signInWithProvider,
+        signInWithPassword,
+        signUpWithPassword,
+        resetPassword,
         signOut,
       }}
     >

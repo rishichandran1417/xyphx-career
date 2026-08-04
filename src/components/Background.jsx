@@ -1,29 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Background() {
-  const [scrollY, setScrollY] = useState(0);
-
   useEffect(() => {
-    const mobileOrReducedMotion = window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frameId = null;
 
-    if (mobileOrReducedMotion.matches) {
-      setScrollY(0);
-      return undefined;
-    }
+    const updatePosition = () => {
+      frameId = null;
+      if (reducedMotion.matches) return;
 
-    const handleScroll = () => setScrollY(window.scrollY);
+      const scrollY = window.scrollY;
+      document.documentElement.style.setProperty("--background-parallax", `${scrollY * 0.18}px`);
+      document.documentElement.style.setProperty("--background-scale", `${1 + Math.min(scrollY * 0.00004, 0.08)}`);
+    };
 
+    const handleScroll = () => {
+      if (frameId === null) frameId = window.requestAnimationFrame(updatePosition);
+    };
+
+    const resetForReducedMotion = () => {
+      if (reducedMotion.matches) {
+        document.documentElement.style.setProperty("--background-parallax", "0px");
+        document.documentElement.style.setProperty("--background-scale", "1");
+      } else {
+        updatePosition();
+      }
+    };
+
+    updatePosition();
     window.addEventListener("scroll", handleScroll, { passive: true });
+    reducedMotion.addEventListener("change", resetForReducedMotion);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      reducedMotion.removeEventListener("change", resetForReducedMotion);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      document.documentElement.style.removeProperty("--background-parallax");
+      document.documentElement.style.removeProperty("--background-scale");
+    };
   }, []);
 
-  return (
-    <div
-      className="bg-image"
-      style={{
-        transform: `translateY(${scrollY * 0.2}px) scale(${1 + scrollY * 0.00008})`,
-      }}
-    />
-  );
+  return <div className="bg-image" aria-hidden="true" />;
 }
