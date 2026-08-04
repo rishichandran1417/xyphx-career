@@ -6,23 +6,28 @@ import SocialLogin from "./SocialLogin";
 
 export default function AuthModal() {
   const { isOpen, closeAuthModal } = useAuthModal();
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) return undefined;
-    const handleKeyDown = (event) => {
+
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") closeAuthModal();
       if (event.key !== "Tab" || !dialogRef.current) return;
-      const elements = [...dialogRef.current.querySelectorAll('button:not([disabled]), input:not([disabled]), [href]')];
+      const elements = [...dialogRef.current.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), [href]')];
       if (!elements.length) return;
       const first = elements[0];
       const last = elements[elements.length - 1];
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
       if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     };
+
     document.addEventListener("keydown", handleKeyDown);
-    const focusTimer = window.setTimeout(() => dialogRef.current?.querySelector("button, input")?.focus(), 0);
-    return () => { document.removeEventListener("keydown", handleKeyDown); window.clearTimeout(focusTimer); };
+    const focusTimer = window.setTimeout(() => dialogRef.current?.querySelector<HTMLElement>("button, input")?.focus(), 0);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      window.clearTimeout(focusTimer);
+    };
   }, [closeAuthModal, isOpen]);
 
   return <AnimatePresence>{isOpen && (

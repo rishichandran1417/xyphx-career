@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TEAMS } from "./Teams";
 import Reveal from "./Reveal";
 import { useAuth } from "../context/AuthContext";
+import { useAuthModal } from "../hooks/useAuthModal";
 
 import "../styles/App.css";
 
@@ -10,7 +11,8 @@ export default function Roles({ jobs, loading, error }) {
   const [activeTeam, setActiveTeam] = useState('All');
   const [activeLoc, setActiveLoc] = useState('All');
   const navigate = useNavigate();
-  const { user, isLoading: isAuthLoading, signInWithGoogle } = useAuth();
+  const { user, isLoading: isAuthLoading } = useAuth();
+  const { openAuthModal } = useAuthModal();
 
   const handleApply = async (jobId) => {
     if (isAuthLoading) return;
@@ -20,12 +22,7 @@ export default function Roles({ jobs, loading, error }) {
       return;
     }
 
-    try {
-      await signInWithGoogle(`/apply/${jobId}`);
-    } catch (error) {
-      console.error("Google Sign-In Error:", error);
-      alert(error.message || "Unable to start sign in. Please try again.");
-    }
+    openAuthModal(`/apply/${jobId}`);
   };
 
  const locs = useMemo(

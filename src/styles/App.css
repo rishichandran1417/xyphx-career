@@ -94,7 +94,10 @@ body, a, button, input, textarea, select {
 }
 html{
   scroll-behavior:auto;
-  overflow-x:hidden;
+  /* `hidden` makes the other axis compute to `auto`, creating a second
+     vertical scroll container on the page root. `clip` keeps the same
+     horizontal clipping without changing vertical overflow. */
+  overflow-x:clip;
 }
 h1,
 h2,
@@ -112,7 +115,13 @@ body {
   position: relative;
   background-color: #fff;
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  overflow-x:clip;
+}
+
+/* Keep the app in normal document flow; only the browser viewport scrolls. */
+#root{
+  min-height:100%;
+  overflow:visible;
 }
 *{
   font-family: inherit;
@@ -614,7 +623,13 @@ section{
 ========================================================== */
 
 .hero{
-  overflow:hidden;
+  /*
+     `hidden` creates a nested scroll container. Because the hero is beneath
+     the pointer at the top of the page, Chromium can consume the first wheel
+     delta there before it chains scrolling to the document. `clip` preserves
+     the visual clipping without creating a scroll container.
+  */
+  overflow:clip;
   border-bottom:1px solid var(--line);
   background:transparent;
 }

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useAuthModal } from "../../hooks/useAuthModal";
 
 export default function LoginForm() {
   const { signInWithPassword, signUpWithPassword, resetPassword } = useAuth();
+  const { closeAuthModal } = useAuthModal();
   const [mode, setMode] = useState("sign-in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +27,7 @@ export default function LoginForm() {
         setMessage("Account created. Check your email to confirm your account.");
       } else {
         await signInWithPassword(email, password);
+        closeAuthModal();
       }
     } catch (authError) {
       setError(authError.message || "Unable to continue. Please try again.");

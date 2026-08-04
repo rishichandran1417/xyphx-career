@@ -4,7 +4,12 @@ const AuthModalContext = createContext(null);
 
 export function AuthModalProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
-  const openAuthModal = useCallback(() => setIsOpen(true), []);
+  const openAuthModal = useCallback((returnTo) => {
+    if (typeof returnTo === "string" && returnTo.startsWith("/")) {
+      sessionStorage.setItem("xyphx-careers:return-to", returnTo);
+    }
+    setIsOpen(true);
+  }, []);
   const closeAuthModal = useCallback(() => setIsOpen(false), []);
 
   return (

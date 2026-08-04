@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../styles/Apply.css";
 import { useAuth } from "../context/AuthContext";
+import { useAuthModal } from "../hooks/useAuthModal";
 
 function normalizeSlug(value) {
   return String(value ?? "")
@@ -12,7 +13,8 @@ function normalizeSlug(value) {
 export default function JobDetails({ jobs = [] }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, signInWithGoogle } = useAuth();
+  const { user } = useAuth();
+  const { openAuthModal } = useAuthModal();
 
   const handleApply = async () => {
     if (user) {
@@ -20,12 +22,7 @@ export default function JobDetails({ jobs = [] }) {
       return;
     }
 
-    try {
-      await signInWithGoogle(`/apply/${job.id}`);
-    } catch (error) {
-      console.error("Google Sign-In Error:", error);
-      alert(error.message);
-    }
+    openAuthModal(`/apply/${job.id}`);
   };
 
   const job = jobs.find((item) => {
