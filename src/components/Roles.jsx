@@ -1,13 +1,32 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TEAMS } from "./Teams";
 import Reveal from "./Reveal";
+import { useAuth } from "../context/AuthContext";
 
 import "../styles/App.css";
 
 export default function Roles({ jobs, loading, error }) {
   const [activeTeam, setActiveTeam] = useState('All');
   const [activeLoc, setActiveLoc] = useState('All');
+  const navigate = useNavigate();
+  const { user, isLoading: isAuthLoading, signInWithGoogle } = useAuth();
+
+  const handleApply = async (jobId) => {
+    if (isAuthLoading) return;
+
+    if (user) {
+      navigate(`/apply/${jobId}`);
+      return;
+    }
+
+    try {
+      await signInWithGoogle(`/apply/${jobId}`);
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      alert(error.message || "Unable to start sign in. Please try again.");
+    }
+  };
 
  const locs = useMemo(
   () => ["All", ...new Set(jobs.map((r) => r.location))],
@@ -83,10 +102,12 @@ export default function Roles({ jobs, loading, error }) {
                   <span className="tag">{r.salary}</span>
                 </div>
               </div>
-              <Link
-  to={`/jobs/${r.slug ?? r.id}`}
+              <button
+  type="button"
+  onClick={() => handleApply(r.id)}
   className="btn btn-ghost role-apply role-arrow"
-  aria-label={`View ${r.title}`}
+  aria-label={`Apply for ${r.title}`}
+  disabled={isAuthLoading}
 >
   <svg
     width="22"
@@ -102,7 +123,7 @@ export default function Roles({ jobs, loading, error }) {
       strokeLinejoin="round"
     />
   </svg>
-</Link>
+</button>
             </div>
             </Reveal>
           ))}

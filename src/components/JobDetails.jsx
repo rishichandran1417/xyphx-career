@@ -1,5 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../styles/Apply.css";
+import { useAuth } from "../context/AuthContext";
 
 function normalizeSlug(value) {
   return String(value ?? "")
@@ -11,6 +12,21 @@ function normalizeSlug(value) {
 export default function JobDetails({ jobs = [] }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, signInWithGoogle } = useAuth();
+
+  const handleApply = async () => {
+    if (user) {
+      navigate(`/apply/${job.id}`);
+      return;
+    }
+
+    try {
+      await signInWithGoogle(`/apply/${job.id}`);
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      alert(error.message);
+    }
+  };
 
   const job = jobs.find((item) => {
     const itemSlug = normalizeSlug(item.slug ?? item.id ?? item.title);
@@ -109,9 +125,9 @@ export default function JobDetails({ jobs = [] }) {
             )}
 
             <div style={styles.footer}>
-              <Link to={`/apply/${job.id}`} className="btn btn-primary">
+              <button type="button" onClick={handleApply} className="btn btn-primary">
                 Apply for this role
-              </Link>
+              </button>
             </div>
           </div>
         </div>

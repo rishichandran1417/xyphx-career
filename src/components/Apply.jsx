@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../styles/Apply.css";
 import { supabase } from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
 
 import { toast } from "sonner";
 export default function Apply({ jobs, loading }) {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user, isLoading: isAuthLoading, signInWithGoogle } = useAuth();
+  const [signInError, setSignInError] = useState("");
+  const hasStartedSignIn = useRef(false);
 
   // All hooks must be called unconditionally, before any early return
   const [form, setForm] = useState({
@@ -29,6 +33,28 @@ export default function Apply({ jobs, loading }) {
     resume: null,
     coverLetter: null,
   });
+
+  useEffect(() => {
+    if (isAuthLoading || user || hasStartedSignIn.current) return;
+
+    hasStartedSignIn.current = true;
+
+    signInWithGoogle(`/apply/${id}`).catch((error) => {
+      console.error("Google Sign-In Error:", error);
+      setSignInError(error.message || "Unable to start sign in. Please try again.");
+    });
+  }, [id, isAuthLoading, signInWithGoogle, user]);
+
+  if (isAuthLoading || !user) {
+    return (
+      <main className="apply-page">
+        <div className="wrap" style={{ padding: "120px 0", textAlign: "center" }}>
+          <h2>{signInError ? "Sign in required" : "Taking you to sign in…"}</h2>
+          {signInError && <p>{signInError}</p>}
+        </div>
+      </main>
+    );
+  }
 
   if (loading) {
     return (
@@ -164,6 +190,7 @@ export default function Apply({ jobs, loading }) {
   .insert([
     {
         job_id: String(job.id),
+  user_id: user.id,
   first_name: form.firstName,
   last_name: form.lastName,
   email: form.email,

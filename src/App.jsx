@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Reveal from "./components/Reveal";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -10,12 +10,14 @@ import Roles from "./components/Roles";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Apply from "./components/Apply";
+import Applications from "./components/Applications";
 import JobDetails from "./components/JobDetails";
 import "./styles/App.css";
 import Cursor from "./components/Cursor";
 import Background from "./components/Background";
 
 import { supabase } from "./lib/supabase";
+import { useAuth } from "./context/AuthContext";
 
 
 
@@ -65,7 +67,9 @@ function CareersPage({ jobs, loading, error }) {
 }
 
 export default function App() {
- 
+  const { user, isLoading: isAuthLoading } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -113,6 +117,18 @@ export default function App() {
 
     loadJobs();
   }, []);
+
+  useEffect(() => {
+    if (isAuthLoading || !user) return;
+
+    const returnTo = sessionStorage.getItem("xyphx-careers:return-to");
+    if (returnTo && returnTo.startsWith("/")) {
+      sessionStorage.removeItem("xyphx-careers:return-to");
+      if (returnTo !== location.pathname) {
+        navigate(returnTo, { replace: true });
+      }
+    }
+  }, [isAuthLoading, location.pathname, navigate, user]);
 
   const [showCursor, setShowCursor] = useState(false);
 
@@ -163,6 +179,7 @@ export default function App() {
 
         <Route path="/jobs/:id" element={<JobDetails jobs={jobs} />} />
         <Route path="/apply/:id" element={<Apply jobs={jobs} />} />
+        <Route path="/applications" element={<Applications jobs={jobs} />} />
       </Routes>
     </>
   );
