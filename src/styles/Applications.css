@@ -94,4 +94,19 @@
 @media (max-width:560px){
   .applications-page{ padding:110px 18px 48px; }
   .application-card{ align-items:flex-start; flex-direction:column; }
+  .applications-heading{ margin-bottom:28px; }
+  .applications-heading p{ line-height:1.6; }
+  .application-card{ padding:20px; gap:14px; }
+  .application-card h2{ font-size:1.05rem; overflow-wrap:anywhere; }
+}
+
+@media (max-width:480px){
+  .applications-page{ padding:92px 16px 40px; }
+  .applications-state, .application-card{ padding:18px; }
+  .application-status{ min-height:32px; display:inline-flex; align-items:center; }
+}
+
+@media (max-width:360px){
+  .applications-page{ padding-left:14px; padding-right:14px; }
+  .applications-heading h1{ font-size:1.8rem; }
 }

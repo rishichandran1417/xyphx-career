@@ -433,8 +433,6 @@ section.pad {
     box-shadow:
         0 0 0 4px rgba(110,86,255,.12);
 
-    b
-
 }
 
 /* =========================
@@ -889,6 +887,12 @@ input:-webkit-autofill{
 
 @media (max-width:600px){
 
+    .apply-hero .wrap,
+    .apply-form-section .wrap{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
     .apply-hero{
 
         padding:72px 0 32px;
@@ -904,8 +908,7 @@ input:-webkit-autofill{
     }
 
     .job-card h1{
-
-        font-size:2rem;
+        font-size:clamp(1.8rem, 9vw, 2.2rem);
 
     }
 
@@ -920,6 +923,8 @@ input:-webkit-autofill{
         padding:8px 14px;
 
         font-size:.8rem;
+        max-width:100%;
+        overflow-wrap:anywhere;
 
     }
 
@@ -930,6 +935,7 @@ input:-webkit-autofill{
         margin-top:-24px;
 
         border-radius:20px;
+        overflow:hidden;
 
     }
 
@@ -945,6 +951,12 @@ input:-webkit-autofill{
 
         font-size:1.4rem;
 
+    }
+
+    .form-subtitle,
+    .field small,
+    .agree{
+        overflow-wrap:anywhere;
     }
 
     /* 16px is the floor that stops iOS Safari auto-zooming a field
@@ -1040,4 +1052,36 @@ input:-webkit-autofill{
 
     }
 
+}
+
+@media (max-width:480px){
+    .apply-hero .wrap,
+    .apply-form-section .wrap{
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    .job-card,
+    .apply-form-card,
+    .form-section{
+        border-radius:16px;
+    }
+
+    .job-card{ padding:20px; }
+    .apply-form-card{ padding:18px; margin-top:-18px; }
+    .form-section{ padding:18px; }
+    .job-meta{ justify-content:flex-start; gap:8px; margin-top:22px; }
+    .job-meta span{ width:100%; }
+    .agree{ font-size:.88rem; }
+}
+
+@media (max-width:360px){
+    .apply-hero{ padding-top:66px; }
+    .job-card h1{ font-size:1.7rem; }
+    .job-back{ padding:8px 14px; margin-bottom:18px; }
+    .apply-form-card{ padding:14px; }
+    .form-section{ padding:16px; }
+    .field input,
+    .field select,
+    .field textarea{ padding-left:14px; padding-right:14px; }
 }

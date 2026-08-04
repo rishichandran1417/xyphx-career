@@ -56,7 +56,13 @@ export default function Navbar() {
             <img src="https://xyphx.com/logo.png" alt="XYPHX" />
           </a>
 
-          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <button
+            type="button"
+            className="hamburger"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             ☰
           </button>
 
@@ -92,7 +98,7 @@ export default function Navbar() {
 
       <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
         <div className="mobile-header">
-          <button className="close-btn" onClick={() => setMenuOpen(false)}>
+          <button type="button" className="close-btn" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
             ✕
           </button>
         </div>
@@ -102,10 +108,12 @@ export default function Navbar() {
             <span className="profile-button" aria-hidden="true">
               {profileImage ? <img src={profileImage} alt="" referrerPolicy="no-referrer" /> : profileLabel.charAt(0).toUpperCase()}
             </span>
-            <div>
-              <div>{profileLabel}</div>
-              <button type="button" className="mobile-sign-out" onClick={handleApplications}>My applications</button>
-              <button type="button" className="mobile-sign-out" onClick={handleSignOut}>Sign out</button>
+            <div className="mobile-profile-details">
+              <div className="mobile-profile-name">{profileLabel}</div>
+              <div className="mobile-account-actions">
+                <button type="button" className="mobile-account-action" onClick={handleApplications}>My applications</button>
+                <button type="button" className="mobile-account-action mobile-sign-out" onClick={handleSignOut}>Sign out</button>
+              </div>
             </div>
           </div>
         ) : (
