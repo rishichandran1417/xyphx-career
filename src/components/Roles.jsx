@@ -2,8 +2,6 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TEAMS } from "./Teams";
 import Reveal from "./Reveal";
-import { useAuth } from "../context/AuthContext";
-import { useAuthModal } from "../hooks/useAuthModal";
 
 import "../styles/App.css";
 
@@ -11,19 +9,8 @@ export default function Roles({ jobs, loading, error }) {
   const [activeTeam, setActiveTeam] = useState('All');
   const [activeLoc, setActiveLoc] = useState('All');
   const navigate = useNavigate();
-  const { user, isLoading: isAuthLoading } = useAuth();
-  const { openAuthModal } = useAuthModal();
 
-  const handleApply = async (jobId) => {
-    if (isAuthLoading) return;
-
-    if (user) {
-      navigate(`/apply/${jobId}`);
-      return;
-    }
-
-    openAuthModal(`/apply/${jobId}`);
-  };
+  const handleViewRole = (jobId) => navigate(`/jobs/${jobId}`);
 
  const locs = useMemo(
   () => ["All", ...new Set(jobs.map((r) => r.location))],
@@ -101,10 +88,9 @@ export default function Roles({ jobs, loading, error }) {
               </div>
               <button
   type="button"
-  onClick={() => handleApply(r.id)}
+  onClick={() => handleViewRole(r.id)}
   className="btn btn-ghost role-apply role-arrow"
   aria-label={`Apply for ${r.title}`}
-  disabled={isAuthLoading}
 >
   <svg
     width="22"

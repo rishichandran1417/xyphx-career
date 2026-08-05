@@ -10,6 +10,7 @@ export default function Apply({ jobs, loading }) {
   const { id } = useParams();
   const { user, isLoading: isAuthLoading, signInWithGoogle } = useAuth();
   const [signInError, setSignInError] = useState("");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const hasStartedSignIn = useRef(false);
 
   // All hooks must be called unconditionally, before any early return
@@ -171,6 +172,12 @@ export default function Apply({ jobs, loading }) {
 
  const handleSubmit = async (e) => {
   e.preventDefault();
+  setHasSubmitted(true);
+
+  if (!e.currentTarget.checkValidity()) {
+    e.currentTarget.reportValidity();
+    return;
+  }
 
   const fileName = `${Date.now()}-${form.resume.name}`;
 
@@ -209,24 +216,39 @@ export default function Apply({ jobs, loading }) {
   .select();
 
 console.log("DATA:", data);
+
 if (error) {
-  console.log(error);
-  console.dir(error);
   console.error(error);
   toast.error(error.message);
   return;
 }
 
-if (error) {
-  console.error(error);
-  toast.error(error.message);
+// Send confirmation email
+const { error: emailError } = await supabase.functions.invoke(
+  "send-confirmation",
+  {
+    body: {
+      name: `${form.firstName} ${form.lastName}`,
+      email: form.email,
+      jobTitle: job.title,
+    },
+  }
+);
+
+if (emailError) {
+  console.error(emailError);
+
+  toast.error("Application submitted, but confirmation email could not be sent.");
+
   return;
 }
 
 toast.success("Application submitted", {
   description:
-    "We've received your application. Our recruitment team will review it shortly.",
+    "We've received your application. A confirmation email has been sent to your inbox.",
 });
+
+
 
 }; 
 
@@ -260,7 +282,7 @@ toast.success("Application submitted", {
       <section className="apply-form-section">
         <div className="wrap">
           <div className="apply-form-card">
-            <form className="apply-form" onSubmit={handleSubmit}>
+            <form className={`apply-form${hasSubmitted ? " is-submitted" : ""}`} onSubmit={handleSubmit} noValidate>
               {/* PERSONAL INFORMATION */}
               <h2 className="form-title">Personal Information</h2>
 

@@ -377,7 +377,7 @@ section.pad {
 
     padding:0 18px;
 
-    border:#6E56FF;
+    border:1px solid #D9DEE7;
 
     border-radius:14px;
     background:transparent;
@@ -736,9 +736,9 @@ input[type=number]::-webkit-outer-spin-button{
    applied. That's the version kept here.)
 ========================= */
 
-.field input:required:invalid,
-.field select:required:invalid,
-.field textarea:required:invalid{
+.apply-form.is-submitted .field input:required:invalid,
+.apply-form.is-submitted .field select:required:invalid,
+.apply-form.is-submitted .field textarea:required:invalid{
 
     border:2px solid #EF4444;
 
@@ -754,9 +754,9 @@ input[type=number]::-webkit-outer-spin-button{
 
 }
 
-.field input:focus:invalid,
-.field select:focus:invalid,
-.field textarea:focus:invalid{
+.apply-form.is-submitted .field input:focus:invalid,
+.apply-form.is-submitted .field select:focus:invalid,
+.apply-form.is-submitted .field textarea:focus:invalid{
 
     box-shadow:0 0 0 4px rgba(239,68,68,.12);
 

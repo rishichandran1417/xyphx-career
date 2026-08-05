@@ -13,16 +13,18 @@ function normalizeSlug(value) {
 export default function JobDetails({ jobs = [] }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isLoading: isAuthLoading } = useAuth();
   const { openAuthModal } = useAuthModal();
 
-  const handleApply = async () => {
-    if (user) {
-      navigate(`/apply/${job.id}`);
+  const handleApply = () => {
+    if (isAuthLoading || !job) return;
+
+    if (!user) {
+      openAuthModal(`/apply/${job.id}`);
       return;
     }
 
-    openAuthModal(`/apply/${job.id}`);
+    navigate(`/apply/${job.id}`);
   };
 
   const job = jobs.find((item) => {
@@ -122,7 +124,7 @@ export default function JobDetails({ jobs = [] }) {
             )}
 
             <div style={styles.footer}>
-              <button type="button" onClick={handleApply} className="btn btn-primary">
+              <button type="button" onClick={handleApply} className="btn btn-primary" disabled={isAuthLoading}>
                 Apply for this role
               </button>
             </div>

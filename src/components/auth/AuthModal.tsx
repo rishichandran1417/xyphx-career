@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuthModal } from "../../hooks/useAuthModal";
-import LoginForm from "./LoginForm";
 import SocialLogin from "./SocialLogin";
 
 export default function AuthModal() {
@@ -36,8 +35,6 @@ export default function AuthModal() {
         <button type="button" className="auth-close" onClick={closeAuthModal} aria-label="Close sign in dialog">×</button>
         <header className="auth-modal-header"><img className="auth-logo" src="https://xyphx.com/logo.png" alt="XyphX" /><h1 id="auth-modal-title">Sign in to XyphX</h1><p>Continue to your account</p></header>
         <SocialLogin />
-        <div className="auth-divider"><span>OR</span></div>
-        <LoginForm />
       </motion.section>
     </motion.div>
   )}</AnimatePresence>;

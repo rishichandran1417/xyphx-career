@@ -493,7 +493,7 @@ section{
 
 .wordmark img{
   display: block;
-  height: 28px;
+  height: 40px;
   width: auto;
 }
 
@@ -903,7 +903,7 @@ footer .btn{
 @media (max-width:640px){
   .wrap{ padding-left:20px; padding-right:20px; }
   .nav-inner{ padding:14px 20px; }
-  .wordmark img{ height:24px; }
+  .wordmark img{ height:32px; }
   .hero-inner{ padding:104px 20px 72px; }
   .eyebrow{ align-items:flex-start; flex-wrap:wrap; margin-bottom:16px; font-size:.76rem; line-height:1.45; }
   .hero h1{ font-size:clamp(2rem, 10vw, 2.7rem); line-height:1.1; }
@@ -1747,7 +1747,7 @@ display:inline-flex;
 }
 
 @media (max-width:360px){
-  .wordmark img{ height:22px; }
+  .wordmark img{ height:28px; }
   .hamburger{ width:44px; height:44px; font-size:26px; }
   .hero h1{ font-size:1.9rem; }
   .hero p.sub{ font-size:.94rem; }
